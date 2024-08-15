@@ -22,7 +22,6 @@ const AppRouter = (props: Props) => {
           </>
         ) : (
           <>
-            <Route path="/register" element={<Register />} />
             <Route path="*" element={<SingIn />} />
           </>
         )}
