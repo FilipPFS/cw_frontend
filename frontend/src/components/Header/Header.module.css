@@ -1,0 +1,47 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    width: 20%;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.logoContainer {
+    width: 100%;
+}
+
+.logoContainer img {
+    width: 100%;
+}
+
+.nav a {
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.nav a:hover {
+    background-color: rgb(229, 238, 241);
+}
+
+.icon {
+    width: 15%;
+    font-size: 25px;
+}
+
+.userLinkImg {
+    width: 15%;
+}
+
+.userLinkImg img {
+    width: 100%;
+}

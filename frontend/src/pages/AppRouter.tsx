@@ -9,11 +9,10 @@ import Register from "./Register/Register";
 type Props = {};
 
 const AppRouter = (props: Props) => {
-  const authentified = false;
+  const authentified = true;
 
   return (
     <Router>
-      {authentified && <Header />}
       <Routes>
         {authentified ? (
           <>
