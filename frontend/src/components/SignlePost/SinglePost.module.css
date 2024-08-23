@@ -36,4 +36,13 @@
 .comIcon {
     font-size: 20px;
     color: rgb(98, 98, 219);
+    cursor: pointer;
+}
+
+.comIcon:hover {
+    color: rgb(117, 117, 225);
+}
+
+.comIcon:active {
+    color: rgb(15, 15, 59);
 }

@@ -6,7 +6,7 @@ import axios from "axios";
 import noAvatar from "../../images/no-avatar.png";
 import { FaChartArea, FaComment, FaThumbsUp } from "react-icons/fa";
 
-type SinglePostProps = Post;
+type SinglePostProps = Post & { addLike: (postId: string) => void };
 
 export type User = {
   _id: string;
@@ -21,7 +21,14 @@ export type User = {
   friends: [];
 };
 
-const SinglePost: React.FC<SinglePostProps> = ({ userId, content, img }) => {
+const SinglePost: React.FC<SinglePostProps> = ({
+  userId,
+  _id,
+  content,
+  img,
+  likes,
+  addLike,
+}) => {
   const [users, setUsers] = useState<User[]>([]);
 
   const getUsers = async () => {
@@ -63,7 +70,8 @@ const SinglePost: React.FC<SinglePostProps> = ({ userId, content, img }) => {
           </div>
         )}
         <div className={styles.comIcons}>
-          <FaThumbsUp className={styles.comIcon} />
+          {likes.length}
+          <FaThumbsUp onClick={() => addLike(_id)} className={styles.comIcon} />
           <FaComment className={styles.comIcon} />
         </div>
       </div>

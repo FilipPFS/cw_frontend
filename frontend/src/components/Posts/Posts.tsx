@@ -26,6 +26,26 @@ const Posts = (props: Props) => {
     }
   };
 
+  const addLike = async (postId: string) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/posts/${postId}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setPosts(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getPosts();
   }, []);
@@ -44,6 +64,7 @@ const Posts = (props: Props) => {
             img={post.img}
             likes={post.likes}
             comments={post.comments}
+            addLike={addLike}
           />
         );
       })}
