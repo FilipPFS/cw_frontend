@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import styles from "./SingIn.module.css";
 import logo from "../../images/logo.webp";
+import axios from "axios";
 
 interface FormData {
   email: string;
@@ -46,16 +47,37 @@ const SignIn = (props: Props) => {
     }
   };
 
-  const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleLoginSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Login Data:", loginData);
-    // Add login logic here
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        loginData
+      );
+
+      if (response) {
+        localStorage.setItem("token", response.data.token);
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleRegisterSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleRegisterSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Register Data:", registerData);
-    // Add register logic here
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/signup",
+        registerData
+      );
+
+      if (response) {
+        setSelected(false);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 40%;
+    margin-top: 25px;
+    padding: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: white;
+}
+
+.bibleQuotes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

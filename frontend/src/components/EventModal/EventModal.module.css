@@ -1,0 +1,31 @@
+.modal {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: azure;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 30px;
+    width: 40%;
+    z-index: 2;
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 10px;
+}
+
+.modal input {
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.modal button {
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: none;
+    background-color: rgb(104, 57, 148);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}

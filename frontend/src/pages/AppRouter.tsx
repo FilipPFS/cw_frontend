@@ -9,12 +9,12 @@ import Register from "./Register/Register";
 type Props = {};
 
 const AppRouter = (props: Props) => {
-  const authentified = true;
+  const token = localStorage.getItem("token");
 
   return (
     <Router>
       <Routes>
-        {authentified ? (
+        {token ? (
           <>
             <Route index element={<Home />} />
             {/* Other authenticated routes */}

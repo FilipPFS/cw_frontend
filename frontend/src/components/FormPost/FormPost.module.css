@@ -1,0 +1,110 @@
+.postContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    padding: 10px;
+    margin-top: 25px;
+    gap: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+}
+
+.formPost {
+    display: flex;
+    flex-direction: column;
+    width: 89%;
+}
+
+.textCtn {
+    width: fit-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.textCtn textarea {
+    width: 100%;
+    border: none;
+    padding-top: 12px;
+}
+
+.userImgCtn img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
+
+.imagePreview img {
+    max-width: 100%;
+    max-height: 150px;
+    margin-top: 10px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding-top: 10px;
+}
+
+.actions:before {
+    content: "";
+    border: 1px solid blue;
+    opacity: 0.2;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.iconCtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.eventIcons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.icon {
+    cursor: pointer;
+    color: blue;
+    font-size: 20px;
+}
+
+.icon:hover {
+    color: rgb(16, 16, 203);
+}
+
+.btnSubmit {
+    padding: 8px 20px;
+    background-color: rgb(81, 81, 214);
+    border-radius: 16px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnSubmit:hover {
+    background-color: rgba(3, 7, 40, 0.7);
+}
+
+.btnSubmit:active {
+    background-color: rgba(3, 7, 40, 0.9);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}

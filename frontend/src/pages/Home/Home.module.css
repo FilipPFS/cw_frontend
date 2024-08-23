@@ -2,8 +2,10 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    position: relative;
+    padding: 0 20px;
 }
 
 .homeContainer {
-    width: 85%;
+    width: 100%;
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import {
   FaBible,
@@ -6,27 +5,49 @@ import {
   FaEnvelope,
   FaHome,
   FaMusic,
+  FaSignOutAlt,
 } from "react-icons/fa";
-import randomAvatar from "../../images/mrraandom.png";
 import logo from "../../images/logo.webp";
 import styles from "./Header.module.css";
-import { log } from "console";
+import { User, user } from "../../user";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import noAvatar from "../../images/no-avatar.png";
 
 type Props = {};
 
-type User = {
-  avatar: string;
-  firstName: string;
-  lastName: string;
-};
-
 const Header = (props: Props) => {
-  const user: User = {
-    avatar: randomAvatar,
-    firstName: "Filip",
-    lastName: "Petrovic",
+  const [user, setUser] = useState<User>();
+
+  const getSessionUser = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/users/session",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setUser(response.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
+  useEffect(() => {
+    getSessionUser();
+  }, []);
+
+  console.log(user);
+
+  const signOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
@@ -55,10 +76,14 @@ const Header = (props: Props) => {
         </Link>
         <Link to={"/"} className={styles.userLink}>
           <div className={styles.userLinkImg}>
-            <img src={user.avatar} />
+            <img src={user?.avatar ? user?.avatar : noAvatar} />
           </div>
-          {`${user.firstName} ${user.lastName}`}
+          {`${user?.firstName} ${user?.lastName}`}
         </Link>
+        <button onClick={signOut}>
+          <FaSignOutAlt />
+          Decconexion
+        </button>
       </nav>
     </header>
   );
