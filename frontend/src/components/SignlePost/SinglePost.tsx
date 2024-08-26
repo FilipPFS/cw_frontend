@@ -4,7 +4,8 @@ import styles from "./SinglePost.module.css";
 import { Post } from "../Posts/Posts";
 import axios from "axios";
 import noAvatar from "../../images/no-avatar.png";
-import { FaChartArea, FaComment, FaThumbsUp } from "react-icons/fa";
+import { FaChartArea, FaComment, FaTh, FaThumbsUp } from "react-icons/fa";
+import Comments from "../Comments/Comments";
 
 type SinglePostProps = Post & { addLike: (postId: string) => void };
 
@@ -28,8 +29,10 @@ const SinglePost: React.FC<SinglePostProps> = ({
   img,
   likes,
   addLike,
+  comments,
 }) => {
   const [users, setUsers] = useState<User[]>([]);
+  const [viewComments, setViewComments] = useState(false);
 
   const getUsers = async () => {
     try {
@@ -51,29 +54,52 @@ const SinglePost: React.FC<SinglePostProps> = ({
     return <div>User not found</div>; // Handle case where user is not found
   }
 
+  const seeComments = () => {
+    setViewComments((prevComments) => !prevComments);
+  };
+
   return (
     <div className={styles.singlePost}>
-      <div className={styles.imgCtn}>
-        <img
-          src={user.avatar ? user.avatar : noAvatar}
-          alt={`${user.firstName} ${user.lastName}`}
-        />
+      <div className={styles.userInfo}>
+        <div className={styles.imgCtn}>
+          <img
+            src={user.avatar ? user.avatar : noAvatar}
+            alt={`${user.firstName} ${user.lastName}`}
+          />
+        </div>
+        <div>
+          <h4>
+            {user.firstName} {user.lastName}
+          </h4>
+        </div>
       </div>
       <div className={styles.content}>
-        <h4>
-          {user.firstName} {user.lastName}
-        </h4>
         {content && <p>{content}</p>}
         {img && (
           <div className={styles.postImgCtn}>
             <img src={img} alt="post" className={styles.postImg} />
           </div>
         )}
-        <div className={styles.comIcons}>
-          {likes.length}
-          <FaThumbsUp onClick={() => addLike(_id)} className={styles.comIcon} />
-          <FaComment className={styles.comIcon} />
+        <div className={styles.reactions}>
+          <div className={styles.reactionsLikes}>
+            <span>{likes.length}</span>
+            <span className={styles.likeBlock}>
+              <FaThumbsUp className={styles.likeIcon} />
+            </span>
+          </div>
+          <span>{comments.length} commentaire/s</span>
         </div>
+        <div className={styles.comIcons}>
+          <span onClick={() => addLike(_id)} className={styles.comIconBlock}>
+            <FaThumbsUp className={styles.comIcon} />
+            {""} J'aime
+          </span>
+          <span onClick={seeComments} className={styles.comIconBlock}>
+            <FaComment className={styles.comIcon} />
+            {""} Commenter
+          </span>
+        </div>
+        {viewComments && <Comments postId={_id} />}
       </div>
     </div>
   );

@@ -37,9 +37,9 @@ const BibleQuotes = (props: Props) => {
 
   return (
     <div className={styles.container}>
-      {bibleQuotes.map((bibleQuote) => {
+      {bibleQuotes.map((bibleQuote, index) => {
         return (
-          <div className={styles.bibleQuotes}>
+          <div className={styles.bibleQuotes} key={index}>
             <h4>{bibleQuote.author}</h4>
             <p>{bibleQuote.message}</p>
           </div>
