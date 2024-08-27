@@ -4,7 +4,13 @@ import styles from "./SinglePost.module.css";
 import { Post } from "../Posts/Posts";
 import axios from "axios";
 import noAvatar from "../../images/no-avatar.png";
-import { FaChartArea, FaComment, FaTh, FaThumbsUp } from "react-icons/fa";
+import {
+  FaChartArea,
+  FaComment,
+  FaRegThumbsUp,
+  FaTh,
+  FaThumbsUp,
+} from "react-icons/fa";
 import Comments from "../Comments/Comments";
 
 type SinglePostProps = Post & { addLike: (postId: string) => void };
@@ -16,8 +22,9 @@ export type User = {
   email: string;
   password: string;
   avatar: string;
+  banner: string;
   userPosts: [];
-  likedPosts: [];
+  likedPosts: string[];
   userEvents: [];
   friends: [];
 };
@@ -33,6 +40,7 @@ const SinglePost: React.FC<SinglePostProps> = ({
 }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [viewComments, setViewComments] = useState(false);
+  const [sessionsUser, setSessionUser] = useState<User>();
 
   const getUsers = async () => {
     try {
@@ -44,8 +52,28 @@ const SinglePost: React.FC<SinglePostProps> = ({
     }
   };
 
+  const getSessionUser = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/users/session`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setSessionUser(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getUsers();
+    getSessionUser();
   }, []);
 
   const user = users.find((user) => user._id === userId);
@@ -57,6 +85,10 @@ const SinglePost: React.FC<SinglePostProps> = ({
   const seeComments = () => {
     setViewComments((prevComments) => !prevComments);
   };
+
+  const hasLiked = likes.some((like) => like.userId === sessionsUser?._id);
+
+  console.log(hasLiked);
 
   return (
     <div className={styles.singlePost}>
@@ -91,8 +123,14 @@ const SinglePost: React.FC<SinglePostProps> = ({
         </div>
         <div className={styles.comIcons}>
           <span onClick={() => addLike(_id)} className={styles.comIconBlock}>
-            <FaThumbsUp className={styles.comIcon} />
-            {""} J'aime
+            {hasLiked ? (
+              <FaThumbsUp className={`${styles.comIcon} ${styles.liked}`} />
+            ) : (
+              <FaRegThumbsUp
+                className={`${styles.comIcon} ${styles.notLiked}`}
+              />
+            )}
+            <span className={`${hasLiked && styles.liked}`}>J'aime</span>
           </span>
           <span onClick={seeComments} className={styles.comIconBlock}>
             <FaComment className={styles.comIcon} />

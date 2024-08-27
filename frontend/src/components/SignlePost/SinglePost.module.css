@@ -101,3 +101,11 @@
     color: rgb(98, 98, 219);
     cursor: pointer;
 }
+
+.notLiked {
+    color: black;
+}
+
+.liked {
+    color: blue;
+}

@@ -11,10 +11,12 @@ const Home: React.FC<Props> = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.homeContainer}>
-        <FormPost />
-        <Posts />
+        <div>
+          <FormPost />
+          <Posts />
+        </div>
+        <BibleQuotes />
       </div>
-      <BibleQuotes />
     </div>
   );
 };

@@ -10,7 +10,7 @@ export type Post = {
   userId: string;
   content?: string;
   img?: string;
-  likes: string[];
+  likes: [{ userId: string; _id: string }];
   comments: { userId: string; text: string }[];
 };
 

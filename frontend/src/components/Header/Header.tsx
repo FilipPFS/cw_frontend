@@ -74,7 +74,7 @@ const Header = (props: Props) => {
           <FaMusic className={styles.icon} />
           Musique
         </Link>
-        <Link to={"/"} className={styles.userLink}>
+        <Link to={"/my-account"} className={styles.userLink}>
           <div className={styles.userLinkImg}>
             <img src={user?.avatar ? user?.avatar : noAvatar} />
           </div>

@@ -5,6 +5,9 @@ import Home from "./Home/Home";
 import Header from "../components/Header/Header";
 import SingIn from "../components/SingIn/SingIn";
 import Register from "./Register/Register";
+import MyAccount from "./MyAccount/MyAccount";
+import UserAccout from "./UserAccount/UserAccount";
+import UserAccount from "./UserAccount/UserAccount";
 
 type Props = {};
 
@@ -17,7 +20,8 @@ const AppRouter = (props: Props) => {
         {token ? (
           <>
             <Route index element={<Home />} />
-            {/* Other authenticated routes */}
+            <Route path="my-account" element={<MyAccount />} />
+            <Route path="user/:userId" element={<UserAccount />} />
           </>
         ) : (
           <>
