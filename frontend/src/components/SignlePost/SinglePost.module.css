@@ -3,9 +3,16 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 95%;
     padding: 10px;
     border-radius: 10px;
+}
+
+.singleHomePost {
+    width: 95%;
+}
+
+.singleUserPost {
+    width: 100%;
 }
 
 .userInfo {
@@ -108,4 +115,19 @@
 
 .liked {
     color: blue;
+}
+
+.informations {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.trash {
+    margin-right: 20px;
+}
+
+.trashIcon {
+    font-size: 18px;
+    color: rgb(18, 18, 78);
 }

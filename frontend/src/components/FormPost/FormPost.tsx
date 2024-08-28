@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { FaImage, FaCalendar } from "react-icons/fa";
 import styles from "./FormPost.module.css";
 import CreateEventModal from "../EventModal/EventModal";
 import noAvatar from "../../images/no-avatar.png";
+import { User } from "../../user";
 
 type Props = {};
 
@@ -13,6 +14,26 @@ const FormPost = (props: Props) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [postContent, setPostContent] = useState({ content: "", img: "" });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sessionUser, setSessionUser] = useState<User>();
+
+  const getSessionUser = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/users/session`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setSessionUser(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleInput = () => {
     if (textareaRef.current) {
@@ -104,10 +125,17 @@ const FormPost = (props: Props) => {
     }
   };
 
+  useEffect(() => {
+    getSessionUser();
+  }, []);
+
   return (
     <div className={styles.postContainer}>
       <div className={styles.userImgCtn}>
-        <img src={noAvatar} alt="user logo" />
+        <img
+          src={sessionUser?.avatar ? sessionUser.avatar : noAvatar}
+          alt="user logo"
+        />
       </div>
       <form className={styles.formPost} onSubmit={handleSubmit}>
         <div className={styles.textCtn}>

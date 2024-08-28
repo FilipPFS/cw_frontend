@@ -6,12 +6,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../../components/Header/Header";
 import UserInfo from "../../components/UserInfo/UserInfo";
+import Posts, { Post } from "../../components/Posts/Posts";
 
 type Props = {};
 
 const UserAccount = (props: Props) => {
   const [user, setUser] = useState<User>();
   const [sessionUser, setSessionUser] = useState<User>();
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
   const { userId } = useParams();
 
   const getUser = async () => {
@@ -21,6 +23,18 @@ const UserAccount = (props: Props) => {
       );
 
       setUser(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getUserPosts = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/posts/${userId}`
+      );
+
+      setUserPosts(response.data);
     } catch (err) {
       console.error(err);
     }
@@ -47,6 +61,7 @@ const UserAccount = (props: Props) => {
 
   useEffect(() => {
     getUser();
+    getUserPosts();
     getSessionUser();
   }, []);
 
@@ -62,6 +77,12 @@ const UserAccount = (props: Props) => {
       <div className={styles.homeContainer}>
         {user && <UserImages user={user} isEditable={false} />}
         {user && <UserInfo user={user} editable={false} />}
+        <Posts
+          posts={userPosts}
+          setPosts={setUserPosts}
+          homePage={false}
+          editable={false}
+        />
       </div>
     </div>
   );

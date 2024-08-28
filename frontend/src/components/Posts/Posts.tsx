@@ -6,6 +6,8 @@ import axios from "axios";
 type Props = {
   posts: Post[];
   setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
+  homePage: boolean;
+  editable: boolean;
 };
 
 export type Post = {
@@ -17,7 +19,7 @@ export type Post = {
   comments: { userId: string; text: string }[];
 };
 
-const Posts = ({ posts, setPosts }: Props) => {
+const Posts = ({ posts, setPosts, homePage, editable }: Props) => {
   const addLike = async (postId: string) => {
     const token = localStorage.getItem("token");
 
@@ -39,7 +41,11 @@ const Posts = ({ posts, setPosts }: Props) => {
   };
 
   return (
-    <div className={styles.postList}>
+    <div
+      className={`${styles.postList} ${
+        homePage ? styles.homePosts : styles.userPosts
+      }`}
+    >
       {posts.map((post) => {
         return (
           <SinglePost
@@ -51,6 +57,9 @@ const Posts = ({ posts, setPosts }: Props) => {
             likes={post.likes}
             comments={post.comments}
             addLike={addLike}
+            homePage={homePage}
+            editable={editable}
+            setPosts={setPosts}
           />
         );
       })}

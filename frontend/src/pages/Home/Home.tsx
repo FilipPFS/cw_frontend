@@ -30,7 +30,12 @@ const Home: React.FC<Props> = () => {
       <div className={styles.homeContainer}>
         <div>
           <FormPost />
-          <Posts posts={posts} setPosts={setPosts} />
+          <Posts
+            posts={posts}
+            setPosts={setPosts}
+            homePage={true}
+            editable={false}
+          />
         </div>
         <BibleQuotes />
       </div>

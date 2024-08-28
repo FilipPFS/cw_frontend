@@ -48,7 +48,7 @@ const UserImages = ({ user, isEditable }: Props) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {overlay && <div onClick={closeOverlay} className={styles.overlay}></div>}
       {isEditable ? (
         <div className={styles.imgContainer}>

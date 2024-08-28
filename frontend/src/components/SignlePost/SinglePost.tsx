@@ -10,11 +10,17 @@ import {
   FaRegThumbsUp,
   FaTh,
   FaThumbsUp,
+  FaTrash,
 } from "react-icons/fa";
 import Comments from "../Comments/Comments";
 import { Link } from "react-router-dom";
 
-type SinglePostProps = Post & { addLike: (postId: string) => void };
+type SinglePostProps = Post & {
+  addLike: (postId: string) => void;
+  homePage: boolean;
+  editable: boolean;
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
+};
 
 export type User = {
   _id: string;
@@ -39,6 +45,9 @@ const SinglePost: React.FC<SinglePostProps> = ({
   likes,
   addLike,
   comments,
+  homePage,
+  editable,
+  setPosts,
 }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [viewComments, setViewComments] = useState(false);
@@ -90,24 +99,51 @@ const SinglePost: React.FC<SinglePostProps> = ({
 
   const hasLiked = likes.some((like) => like.userId === sessionsUser?._id);
 
-  console.log(hasLiked);
+  const deletePost = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/posts/delete/${_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setPosts(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
-    <div className={styles.singlePost}>
-      <div className={styles.userInfo}>
-        <div className={styles.imgCtn}>
-          <img
-            src={user.avatar ? user.avatar : noAvatar}
-            alt={`${user.firstName} ${user.lastName}`}
-          />
+    <div
+      className={`${styles.singlePost} ${
+        homePage ? styles.singleHomePost : styles.singleUserPost
+      }`}
+    >
+      <div className={styles.informations}>
+        <div className={styles.userInfo}>
+          <div className={styles.imgCtn}>
+            <img
+              src={user.avatar ? user.avatar : noAvatar}
+              alt={`${user.firstName} ${user.lastName}`}
+            />
+          </div>
+          <div>
+            <Link to={`/user/${userId}`}>
+              <h4>
+                {user.firstName} {user.lastName}
+              </h4>
+            </Link>
+          </div>
         </div>
-        <div>
-          <Link to={`/user/${userId}`}>
-            <h4>
-              {user.firstName} {user.lastName}
-            </h4>
-          </Link>
-        </div>
+        {editable && (
+          <span className={styles.trash} onClick={deletePost}>
+            <FaTrash className={styles.trashIcon} />
+          </span>
+        )}
       </div>
       <div className={styles.content}>
         {content && <p>{content}</p>}
