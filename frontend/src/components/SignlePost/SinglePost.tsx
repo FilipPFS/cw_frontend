@@ -12,6 +12,7 @@ import {
   FaThumbsUp,
 } from "react-icons/fa";
 import Comments from "../Comments/Comments";
+import { Link } from "react-router-dom";
 
 type SinglePostProps = Post & { addLike: (postId: string) => void };
 
@@ -23,6 +24,7 @@ export type User = {
   password: string;
   avatar: string;
   banner: string;
+  description: string;
   userPosts: [];
   likedPosts: string[];
   userEvents: [];
@@ -100,9 +102,11 @@ const SinglePost: React.FC<SinglePostProps> = ({
           />
         </div>
         <div>
-          <h4>
-            {user.firstName} {user.lastName}
-          </h4>
+          <Link to={`/user/${userId}`}>
+            <h4>
+              {user.firstName} {user.lastName}
+            </h4>
+          </Link>
         </div>
       </div>
       <div className={styles.content}>

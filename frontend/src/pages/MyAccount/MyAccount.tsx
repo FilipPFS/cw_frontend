@@ -5,6 +5,7 @@ import BibleQuotes from "../../components/BibleQuotes/BibleQuotes";
 import { User } from "../../components/SignlePost/SinglePost";
 import axios from "axios";
 import UserImages from "../../components/UserImages/UserImages";
+import UserInfo from "../../components/UserInfo/UserInfo";
 
 type Props = {};
 
@@ -39,6 +40,13 @@ const MyAccount = (props: Props) => {
       <Header />
       <div className={styles.homeContainer}>
         {sessionUser && <UserImages user={sessionUser} isEditable={true} />}
+        {sessionUser && (
+          <UserInfo
+            user={sessionUser}
+            editable={true}
+            setSessionUser={setSessionUser}
+          />
+        )}
       </div>
     </div>
   );

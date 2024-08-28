@@ -3,7 +3,10 @@ import SinglePost from "../SignlePost/SinglePost";
 import styles from "./Posts.module.css";
 import axios from "axios";
 
-type Props = {};
+type Props = {
+  posts: Post[];
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
+};
 
 export type Post = {
   _id: string;
@@ -14,18 +17,7 @@ export type Post = {
   comments: { userId: string; text: string }[];
 };
 
-const Posts = (props: Props) => {
-  const [posts, setPosts] = useState<Post[]>([]);
-
-  const getPosts = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/api/posts");
-      setPosts(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+const Posts = ({ posts, setPosts }: Props) => {
   const addLike = async (postId: string) => {
     const token = localStorage.getItem("token");
 
@@ -45,12 +37,6 @@ const Posts = (props: Props) => {
       console.error(err);
     }
   };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
-
-  console.log(posts);
 
   return (
     <div className={styles.postList}>
