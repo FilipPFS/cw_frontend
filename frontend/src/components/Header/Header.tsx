@@ -42,8 +42,6 @@ const Header = (props: Props) => {
     getSessionUser();
   }, []);
 
-  console.log(user);
-
   const signOut = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -58,7 +56,7 @@ const Header = (props: Props) => {
           <FaHome className={styles.icon} />
           Accueil
         </Link>
-        <Link to={"/"}>
+        <Link to={"/messages"}>
           <FaEnvelope className={styles.icon} />
           Messages
         </Link>

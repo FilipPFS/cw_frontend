@@ -85,3 +85,23 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.username {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.username button {
+    background-color: blue;
+    padding: 4px 8px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.username button:hover {
+    background-color: blueviolet;
+}

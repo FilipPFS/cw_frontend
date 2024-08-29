@@ -5,6 +5,7 @@ import { FaPen } from "react-icons/fa";
 import Posts from "../Posts/Posts";
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 type Props = {
   editable: boolean;
@@ -74,9 +75,16 @@ const UserInfo = ({ user, editable, setSessionUser }: Props) => {
       {modal && <div className={styles.overlay} onClick={closeModal}></div>}
       <div className={styles.container}>
         <div className={styles.edit}>
-          <h2>
-            {user.firstName} {user.lastName}
-          </h2>
+          <div className={styles.username}>
+            <h2>
+              {user.firstName} {user.lastName}
+            </h2>
+            {!editable && (
+              <Link to={`/messages/${user._id}`}>
+                <button>Message</button>
+              </Link>
+            )}
+          </div>
           <p>{user.description}</p>
           <span>{user.friends.length} friend(s)</span>
         </div>

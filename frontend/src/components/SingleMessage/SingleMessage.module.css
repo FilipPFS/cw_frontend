@@ -1,0 +1,47 @@
+.singleMsg {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.userMsg {
+    justify-content: flex-end;
+}
+
+.senderMsg {
+    justify-content: flex-start;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.userAvatar {
+    order: 2;
+}
+
+.senderAvatar {
+    order: 1;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 20px;
+    order: 2;
+}
+
+.userContent {
+    order: 1;
+}
+
+.senderContent {
+    order: 2;
+}

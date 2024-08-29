@@ -8,6 +8,8 @@ import Register from "./Register/Register";
 import MyAccount from "./MyAccount/MyAccount";
 import UserAccout from "./UserAccount/UserAccount";
 import UserAccount from "./UserAccount/UserAccount";
+import Messages from "./Messages/Messages";
+import Chat from "./Chat/Chat";
 
 type Props = {};
 
@@ -22,6 +24,8 @@ const AppRouter = (props: Props) => {
             <Route index element={<Home />} />
             <Route path="my-account" element={<MyAccount />} />
             <Route path="user/:userId" element={<UserAccount />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="messages/:userId" element={<Chat />} />
           </>
         ) : (
           <>

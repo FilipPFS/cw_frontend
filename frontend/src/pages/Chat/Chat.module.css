@@ -1,0 +1,81 @@
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 20px;
+}
+
+.maincontainer a {
+    color: black;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 25px;
+    background-color: rgba(239, 235, 235, 0.744);
+    padding: 20px;
+    border-radius: 10px;
+    gap: 30px;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: fit-content;
+}
+
+.userInfo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.form input {
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 50px;
+    border-radius: 20px;
+    border: none;
+    width: 100%;
+}
+
+.form button {
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    background-color: transparent;
+    border: none;
+}
+
+.btnIcon {
+    font-size: 17px;
+    cursor: pointer;
+    color: black;
+}
+
+.formAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
