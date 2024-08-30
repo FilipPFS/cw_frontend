@@ -25,7 +25,7 @@ const AppRouter = (props: Props) => {
             <Route path="my-account" element={<MyAccount />} />
             <Route path="user/:userId" element={<UserAccount />} />
             <Route path="messages" element={<Messages />} />
-            <Route path="messages/:userId" element={<Chat />} />
+            <Route path="messages/:userMsgId" element={<Chat />} />
           </>
         ) : (
           <>

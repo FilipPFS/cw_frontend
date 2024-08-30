@@ -8,6 +8,11 @@
 
 .homeContainer {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
     margin-top: 25px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
 }

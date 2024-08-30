@@ -30,12 +30,24 @@
 
 .content {
     display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    order: 2;
+}
+
+.userContent {
+    align-items: flex-end;
+}
+
+.content p {
+    display: flex;
     align-items: center;
+    width: fit-content;
     background-color: white;
-    height: 40px;
+    min-height: 40px;
     padding: 0 10px;
     border-radius: 20px;
-    order: 2;
 }
 
 .userContent {
@@ -44,4 +56,19 @@
 
 .senderContent {
     order: 2;
+}
+
+.userSmall {
+    align-self: flex-end;
+}
+
+.smallInfos {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.smallDelete {
+    color: red;
 }

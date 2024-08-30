@@ -11,8 +11,8 @@ import { FaPaperPlane } from "react-icons/fa";
 
 type Props = {};
 
-type Message = {
-  id: string;
+export type Message = {
+  _id: string;
   senderId: string;
   receiverId: string;
   content: string;
@@ -24,12 +24,12 @@ const Chat = (props: Props) => {
   const [sessionUser, setSessionUser] = useState<User>();
   const [messages, setMessages] = useState<Message[]>([]);
   const [content, setContent] = useState("");
-  const { userId } = useParams();
+  const { userMsgId } = useParams();
 
   const getUser = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/users/${userId}`
+        `http://localhost:5000/api/users/${userMsgId}`
       );
 
       setUser(response.data);
@@ -43,7 +43,7 @@ const Chat = (props: Props) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/messages/from/${userId}`,
+        `http://localhost:5000/api/messages/from/${userMsgId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ const Chat = (props: Props) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/messages/new/${userId}`,
+        `http://localhost:5000/api/messages/new/${userMsgId}`,
         { content },
         {
           headers: {
@@ -116,13 +116,17 @@ const Chat = (props: Props) => {
           </Link>
         </div>
         <div className={styles.messages}>
-          {messages.map((message) => {
+          {messages.map((message, index) => {
             return (
               <SingleMessage
-                key={message.id}
+                key={index}
                 senderId={message.senderId}
                 content={message.content}
                 userId={user ? user._id : ""}
+                date={message.date}
+                sessionId={sessionUser ? sessionUser._id : ""}
+                messageId={message._id}
+                setMessages={setMessages}
               />
             );
           })}
