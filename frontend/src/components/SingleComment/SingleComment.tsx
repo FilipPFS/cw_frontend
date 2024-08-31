@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 import noAvatar from "../../images/no-avatar.png";
 import { User } from "../SignlePost/SinglePost";
 import styles from "./SingleComment.module.css";
@@ -15,7 +15,7 @@ const SingleComment = ({ text, userId }: Props) => {
 
   const getUser = async () => {
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<User> = await axios.get(
         `http://localhost:5000/api/users/${userId}`
       );
 

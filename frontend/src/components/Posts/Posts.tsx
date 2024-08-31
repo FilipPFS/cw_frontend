@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SinglePost from "../SignlePost/SinglePost";
 import styles from "./Posts.module.css";
 import axios, { AxiosResponse } from "axios";

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Messages.module.css";
 import Header from "../../components/Header/Header";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Message } from "../Chat/Chat";
 import MessageModal from "../../components/MessageModal/MessageModal";
 
@@ -14,11 +14,12 @@ const Messages = (props: Props) => {
     const fetchMessages = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("http://localhost:5000/api/messages", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response: AxiosResponse<{ [key: string]: Message[] }> =
+          await axios.get("http://localhost:5000/api/messages", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
         const groupedMessages = response.data;
 
         const lastMessagesArray = Object.keys(groupedMessages).map((key) => {

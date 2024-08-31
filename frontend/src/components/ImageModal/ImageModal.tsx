@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styles from "./ImageModal.module.css";
-import noAvatar from "../../images/no-avatar.png";
 import grayBanner from "../../images/graybanner.webp";
 import { User } from "../SignlePost/SinglePost";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 type Props = {
   avatar: boolean;
@@ -41,7 +40,7 @@ const ImageModal = ({ element, setIsModalOpen, avatar, setOverlay }: Props) => {
   const uploadImageToCloudinary = async (base64Image: string) => {
     try {
       console.log("Transferring image", base64Image);
-      const response = await axios.post(
+      const response: AxiosResponse<{ url: string }> = await axios.post(
         "http://localhost:5000/api/upload/avatar",
         {
           img: base64Image,
@@ -83,11 +82,15 @@ const ImageModal = ({ element, setIsModalOpen, avatar, setOverlay }: Props) => {
         api_url = "http://localhost:5000/api/users/banner";
       }
 
-      const response = await axios.post(api_url, finalPostContent, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response: AxiosResponse<User> = await axios.post(
+        api_url,
+        finalPostContent,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response) {
         window.location.reload();

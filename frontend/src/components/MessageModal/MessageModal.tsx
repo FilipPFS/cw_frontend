@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./MessageModal.module.css";
 import { User } from "../SignlePost/SinglePost";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import noAvatar from "../../images/no-avatar.png";
 import { formatDistanceToNow } from "date-fns";
@@ -26,7 +26,7 @@ const MessageModal = ({ senderId, receiverId, content, date }: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<User> = await axios.get(
         `http://localhost:5000/api/users/session`,
         {
           headers: {
@@ -51,7 +51,7 @@ const MessageModal = ({ senderId, receiverId, content, date }: Props) => {
       const userLink = senderId === sessionUser._id ? receiverId : senderId;
 
       try {
-        const response = await axios.get(
+        const response: AxiosResponse<User> = await axios.get(
           `http://localhost:5000/api/users/${userLink}`
         );
 

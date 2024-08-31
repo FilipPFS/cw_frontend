@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { users } from "../../users";
 import styles from "./SinglePost.module.css";
 import { Post } from "../Posts/Posts";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import noAvatar from "../../images/no-avatar.png";
-import {
-  FaChartArea,
-  FaComment,
-  FaRegThumbsUp,
-  FaTh,
-  FaThumbsUp,
-  FaTrash,
-} from "react-icons/fa";
+import { FaComment, FaRegThumbsUp, FaThumbsUp, FaTrash } from "react-icons/fa";
 import Comments from "../Comments/Comments";
 import { Link } from "react-router-dom";
 
@@ -55,7 +47,9 @@ const SinglePost: React.FC<SinglePostProps> = ({
 
   const getUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users");
+      const response: AxiosResponse<User[]> = await axios.get(
+        "http://localhost:5000/api/users"
+      );
 
       setUsers(response.data);
     } catch (err) {
@@ -67,7 +61,7 @@ const SinglePost: React.FC<SinglePostProps> = ({
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<User> = await axios.get(
         `http://localhost:5000/api/users/session`,
         {
           headers: {
@@ -102,7 +96,7 @@ const SinglePost: React.FC<SinglePostProps> = ({
   const deletePost = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.delete(
+      const response: AxiosResponse<Post[]> = await axios.delete(
         `http://localhost:5000/api/posts/delete/${_id}`,
         {
           headers: {

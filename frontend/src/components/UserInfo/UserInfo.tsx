@@ -1,10 +1,8 @@
 import styles from "./UserInfo.module.css";
 import { User } from "../SignlePost/SinglePost";
-import { isEditable } from "@testing-library/user-event/dist/utils";
 import { FaPen } from "react-icons/fa";
-import Posts from "../Posts/Posts";
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -53,7 +51,7 @@ const UserInfo = ({ user, editable, setSessionUser }: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.put(
+      const response: AxiosResponse<User> = await axios.put(
         "http://localhost:5000/api/users/personal-infos",
         userInfos,
         {

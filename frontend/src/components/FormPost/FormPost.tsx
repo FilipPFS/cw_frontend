@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { FaImage, FaCalendar } from "react-icons/fa";
 import styles from "./FormPost.module.css";
 import CreateEventModal from "../EventModal/EventModal";
@@ -20,7 +20,7 @@ const FormPost = (props: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<User> = await axios.get(
         `http://localhost:5000/api/users/session`,
         {
           headers: {
@@ -71,7 +71,7 @@ const FormPost = (props: Props) => {
   const uploadImageToCloudinary = async (base64Image: string) => {
     try {
       console.log("Transfering image", base64Image);
-      const response = await axios.post(
+      const response: AxiosResponse<{ url: string }> = await axios.post(
         "http://localhost:5000/api/upload/post",
         {
           img: base64Image,
@@ -105,7 +105,7 @@ const FormPost = (props: Props) => {
 
       console.log("Data to send", finalPostContent);
 
-      const response = await axios.post(
+      const response: AxiosResponse<{ message: string }> = await axios.post(
         "http://localhost:5000/api/posts",
         finalPostContent,
         {

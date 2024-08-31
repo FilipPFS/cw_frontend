@@ -11,7 +11,7 @@ import logo from "../../images/logo.webp";
 import styles from "./Header.module.css";
 import { User, user } from "../../user";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import noAvatar from "../../images/no-avatar.png";
 
 type Props = {};
@@ -23,7 +23,7 @@ const Header = (props: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<User> = await axios.get(
         "http://localhost:5000/api/users/session",
         {
           headers: {

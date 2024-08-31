@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./MyAccount.module.css";
 import Header from "../../components/Header/Header";
 import { User } from "../../components/SignlePost/SinglePost";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import UserImages from "../../components/UserImages/UserImages";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Posts, { Post } from "../../components/Posts/Posts";
@@ -38,11 +38,14 @@ const MyAccount = (props: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/posts/post`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response: AxiosResponse<Post[]> = await axios.get(
+        `http://localhost:5000/api/posts/post`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setUserPosts(response.data);
     } catch (err) {
@@ -54,7 +57,7 @@ const MyAccount = (props: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<Post[]> = await axios.get(
         `http://localhost:5000/api/posts/likedPosts`,
         {
           headers: {

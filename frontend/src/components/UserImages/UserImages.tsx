@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { User } from "../SignlePost/SinglePost";
 import grayBanner from "../../images/graybanner.webp";
 import noAvatar from "../../images/no-avatar.png";
 import styles from "./UserImages.module.css";
-import { isEditable } from "@testing-library/user-event/dist/utils";
 import { FaPen } from "react-icons/fa";
 import ImageModal from "../ImageModal/ImageModal";
 

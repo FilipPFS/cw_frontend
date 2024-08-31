@@ -1,8 +1,8 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import styles from "./SingIn.module.css";
 import logo from "../../images/logo.webp";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 interface FormData {
   email: string;
@@ -50,10 +50,8 @@ const SignIn = (props: Props) => {
   const handleLoginSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        loginData
-      );
+      const response: AxiosResponse<{ userId: string; token: string }> =
+        await axios.post("http://localhost:5000/api/auth/login", loginData);
 
       if (response) {
         localStorage.setItem("token", response.data.token);

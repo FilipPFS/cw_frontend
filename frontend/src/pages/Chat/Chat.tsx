@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import styles from "./Chat.module.css";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Link, useParams } from "react-router-dom";
 import noAvatar from "../../images/no-avatar.png";
 import { User } from "../../components/SignlePost/SinglePost";
-import { log } from "console";
 import SingleMessage from "../../components/SingleMessage/SingleMessage";
 import { FaPaperPlane } from "react-icons/fa";
 
@@ -28,7 +27,7 @@ const Chat = (props: Props) => {
 
   const getUser = async () => {
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<User> = await axios.get(
         `http://localhost:5000/api/users/${userMsgId}`
       );
 
@@ -42,7 +41,7 @@ const Chat = (props: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<Message[]> = await axios.get(
         `http://localhost:5000/api/messages/from/${userMsgId}`,
         {
           headers: {
@@ -61,7 +60,7 @@ const Chat = (props: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<User> = await axios.get(
         `http://localhost:5000/api/users/session`,
         {
           headers: {
@@ -80,7 +79,7 @@ const Chat = (props: Props) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(
+      const response: AxiosResponse<Message[]> = await axios.post(
         `http://localhost:5000/api/messages/new/${userMsgId}`,
         { content },
         {
