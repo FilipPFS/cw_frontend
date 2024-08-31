@@ -8,3 +8,9 @@
 .homePosts {
   margin-top: 10px;
 }
+
+.noPosts {
+  background-color: white;
+  padding: 20px;
+  padding-bottom: 30px;
+}

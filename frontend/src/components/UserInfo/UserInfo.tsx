@@ -86,7 +86,7 @@ const UserInfo = ({ user, editable, setSessionUser }: Props) => {
             )}
           </div>
           <p>{user.description}</p>
-          <span>{user.friends.length} friend(s)</span>
+          <span>{user.friends.length} amis</span>
         </div>
         {editable && (
           <span onClick={openModal}>
@@ -111,7 +111,7 @@ const UserInfo = ({ user, editable, setSessionUser }: Props) => {
                   <label>Nom</label>
                   <input
                     type="text"
-                    placeholder="Votre prénom"
+                    placeholder="Votre nom"
                     name="lastName"
                     onChange={handleChange}
                     value={userInfos.lastName}
@@ -122,7 +122,7 @@ const UserInfo = ({ user, editable, setSessionUser }: Props) => {
                 <label>Descripttion</label>
                 <input
                   type="text"
-                  placeholder="Votre prénom"
+                  placeholder="Votre descritpion"
                   name="description"
                   onChange={handleChange}
                   value={userInfos.description}

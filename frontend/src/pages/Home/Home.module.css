@@ -11,3 +11,7 @@
   width: 100%;
   margin-top: 25px;
 }
+
+.homePosts {
+  min-width: 70%;
+}

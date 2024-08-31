@@ -28,7 +28,7 @@ const Home: React.FC<Props> = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.homeContainer}>
-        <div>
+        <div className={styles.homePosts}>
           <FormPost />
           <Posts
             posts={posts}

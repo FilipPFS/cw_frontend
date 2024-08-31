@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./MyAccount.module.css";
 import Header from "../../components/Header/Header";
-import BibleQuotes from "../../components/BibleQuotes/BibleQuotes";
 import { User } from "../../components/SignlePost/SinglePost";
 import axios from "axios";
 import UserImages from "../../components/UserImages/UserImages";
@@ -75,6 +74,8 @@ const MyAccount = (props: Props) => {
     getSessionUserPosts();
     getLikedPosts();
   }, []);
+
+  console.log("Liked posts", likedPosts);
 
   return (
     <div className={styles.container}>

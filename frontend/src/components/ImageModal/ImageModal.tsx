@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ImageModal.module.css";
 import noAvatar from "../../images/no-avatar.png";
+import grayBanner from "../../images/graybanner.webp";
 import { User } from "../SignlePost/SinglePost";
 import axios from "axios";
 
@@ -112,7 +113,7 @@ const ImageModal = ({ element, setIsModalOpen, avatar, setOverlay }: Props) => {
 
         <label htmlFor="fileInput" className={styles.imagePreview}>
           <img
-            src={previewImage || (element ? element : noAvatar)}
+            src={previewImage || (element ? element : grayBanner)}
             alt="Preview"
             className={`${avatar ? styles.previewImage : styles.bannerPreview}`}
           />

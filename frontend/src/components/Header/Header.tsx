@@ -78,9 +78,9 @@ const Header = (props: Props) => {
           </div>
           {`${user?.firstName} ${user?.lastName}`}
         </Link>
-        <button onClick={signOut}>
+        <button onClick={signOut} className={styles.signOutBtn}>
           <FaSignOutAlt />
-          Decconexion
+          <span>Decconexion</span>
         </button>
       </nav>
     </header>

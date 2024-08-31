@@ -28,6 +28,10 @@
     object-fit: cover;
 }
 
+.postImgCtn {
+    width: 100%;
+}
+
 .postImg {
     margin-top: 3px;
     width: 100%;

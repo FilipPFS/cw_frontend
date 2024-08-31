@@ -49,5 +49,24 @@
 }
 
 .userLinkImg img {
-    width: 100%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.signOutBtn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    padding: 6px 0;
+    border-radius: 5px;
+    background-color: rgb(10, 10, 107);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.signOutBtn:hover {
+    background-color: rgb(96, 41, 148);
 }

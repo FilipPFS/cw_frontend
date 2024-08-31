@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import styles from "./Comments.module.css";
 import { useEffect, useState } from "react";
 import { User } from "../../user";
@@ -10,15 +10,20 @@ type Props = {
   postId: string;
 };
 
+type Comment = {
+  _id: string;
+  userId: string;
+  text: string;
+};
+
 const Comments = ({ postId }: Props) => {
-  const [allComments, setAllComments] =
-    useState<{ userId: string; text: string }[]>();
+  const [allComments, setAllComments] = useState<Comment[]>();
   const [sessionUser, setSessionUser] = useState<User>();
   const [comment, setComment] = useState("");
 
   const getPostComments = async (postId: string) => {
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<Comment[]> = await axios.get(
         `http://localhost:5000/api/posts/comment/${postId}`
       );
 
@@ -32,7 +37,7 @@ const Comments = ({ postId }: Props) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(
+      const response: AxiosResponse<Comment[]> = await axios.post(
         `http://localhost:5000/api/posts/comment/${postId}`,
         { comment },
         {
@@ -53,7 +58,7 @@ const Comments = ({ postId }: Props) => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get(
+      const response: AxiosResponse<User> = await axios.get(
         `http://localhost:5000/api/users/session`,
         {
           headers: {
