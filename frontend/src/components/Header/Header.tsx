@@ -60,7 +60,7 @@ const Header = (props: Props) => {
           <FaEnvelope className={styles.icon} />
           Messages
         </Link>
-        <Link to={"/"}>
+        <Link to={"/events"}>
           <FaCalendar className={styles.icon} />
           Evenements
         </Link>

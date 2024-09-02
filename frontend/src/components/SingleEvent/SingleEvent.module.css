@@ -1,0 +1,69 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 40%;
+    background-color: rgb(244, 244, 237);
+    padding: 25px;
+    border-radius: 6px;
+}
+
+.imgContainer {
+    width: 100%;
+    aspect-ratio: 4 / 1;
+    height: auto;
+}
+
+.imgContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.infoContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.infoContainer p,
+.infoContainer span,
+.infoContainer a,
+.infoContainer button {
+    font-size: 13px;
+}
+
+.userName {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.infoContainer button {
+    padding: 5px 0;
+    background-color: rgb(104, 57, 148);
+    border-radius: 5px;
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.infoContainer button:disabled {
+    padding: 5px 0;
+    background-color: rgb(97, 94, 100);
+    border-radius: 5px;
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: not-allowed;
+}

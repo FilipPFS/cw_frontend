@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 20px;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-top: 25px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.events {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}

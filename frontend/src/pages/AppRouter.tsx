@@ -11,6 +11,7 @@ import UserAccount from "./UserAccount/UserAccount";
 import Messages from "./Messages/Messages";
 import Chat from "./Chat/Chat";
 import Bible from "./Bible/Bible";
+import Event from "./Event/Event";
 
 type Props = {};
 
@@ -29,6 +30,7 @@ const AppRouter = (props: Props) => {
             <Route path="messages/:userMsgId" element={<Chat />} />
             <Route path="bible" element={<Bible />} />
             <Route path="music" element={<Bible />} />
+            <Route path="events" element={<Event />} />
           </>
         ) : (
           <>
