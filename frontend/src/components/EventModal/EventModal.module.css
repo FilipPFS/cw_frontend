@@ -29,3 +29,33 @@
     font-weight: 600;
     cursor: pointer;
 }
+
+.hiddenInput {
+    display: none;
+}
+
+.customUpload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgb(239, 239, 243);
+    padding: 20px;
+    border-radius: 4px;
+    height: 100px;
+}
+
+.iconImg {
+    font-size: 40px;
+    color: blue;
+}
+
+.customUpload small {
+    color: blue;
+}
+
+.imagePreview {
+    object-fit: cover;
+    height: 100px;
+}

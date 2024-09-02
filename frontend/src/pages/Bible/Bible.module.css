@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 20px;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 25px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.lock {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 30%;
+    text-align: center;
+}
+
+.icon {
+    font-size: 100px;
+}
+
+.lock button {
+    background-color: rgb(20, 20, 72);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+}
+
+.lock button:disabled {
+    background-color: rgb(92, 89, 89);
+    cursor: not-allowed;
+}

@@ -64,11 +64,11 @@ const Header = (props: Props) => {
           <FaCalendar className={styles.icon} />
           Evenements
         </Link>
-        <Link to={"/"}>
+        <Link to={"/bible"}>
           <FaBible className={styles.icon} />
           Bible
         </Link>
-        <Link to={"/"}>
+        <Link to={"/music"}>
           <FaMusic className={styles.icon} />
           Musique
         </Link>

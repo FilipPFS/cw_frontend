@@ -10,6 +10,7 @@ import UserAccout from "./UserAccount/UserAccount";
 import UserAccount from "./UserAccount/UserAccount";
 import Messages from "./Messages/Messages";
 import Chat from "./Chat/Chat";
+import Bible from "./Bible/Bible";
 
 type Props = {};
 
@@ -26,6 +27,8 @@ const AppRouter = (props: Props) => {
             <Route path="user/:userId" element={<UserAccount />} />
             <Route path="messages" element={<Messages />} />
             <Route path="messages/:userMsgId" element={<Chat />} />
+            <Route path="bible" element={<Bible />} />
+            <Route path="music" element={<Bible />} />
           </>
         ) : (
           <>

@@ -6,6 +6,8 @@
 
 .bannerCtn {
   height: 100%;
+  cursor: pointer;
+  object-fit: cover;
 }
 
 .banner {
@@ -29,6 +31,7 @@
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid white;
+  cursor: pointer;
 }
 
 .bannerIcon {

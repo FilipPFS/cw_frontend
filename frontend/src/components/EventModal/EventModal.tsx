@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "./EventModal.module.css";
+import axios, { AxiosResponse } from "axios";
+import { FaImage } from "react-icons/fa";
 
 interface EventData {
-  name: string;
+  title: string;
   cover: File | null;
   coverPreview: string | null;
-  startDate: string;
-  endDate: string;
   description: string;
 }
 
@@ -15,13 +15,14 @@ interface Props {
   setIsModalOpen: (open: boolean) => void;
 }
 
+const MAX_FILE_SIZE_MB = 4;
+const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
 const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
   const [eventData, setEventData] = useState<EventData>({
-    name: "",
+    title: "",
     cover: null,
     coverPreview: null,
-    startDate: "",
-    endDate: "",
     description: "",
   });
 
@@ -30,6 +31,12 @@ const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
 
     if (name === "cover" && files && files[0]) {
       const file = files[0];
+
+      if (file.size > MAX_FILE_SIZE_BYTES) {
+        alert(`Le fichier ne doit pas plus de ${MAX_FILE_SIZE_MB}MB`);
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setEventData((prevState) => ({
@@ -47,18 +54,59 @@ const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
     }
   };
 
-  const handleSubmit = () => {
-    console.log(eventData);
-    onClose(); // Close the modal after creation
+  const uploadImageToCloudinary = async (base64Image: string) => {
+    try {
+      console.log("Transfering image", base64Image);
+      const response: AxiosResponse<{ url: string }> = await axios.post(
+        "http://localhost:5000/api/upload/event",
+        {
+          img: base64Image,
+        }
+      );
+      console.log(response.data.url);
+
+      return response.data.url;
+    } catch (error) {
+      console.error("Error uploading image to Cloudinary:", error);
+      return null;
+    }
+  };
+  const handleSubmit = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      let imageUrl = "";
+
+      if (eventData.coverPreview) {
+        const uploadedImageUrl = await uploadImageToCloudinary(
+          eventData.coverPreview
+        );
+        imageUrl = uploadedImageUrl ?? ""; // Fallback to empty string if null
+      }
+
+      const eventPayload = {
+        title: eventData.title,
+        coverImg: imageUrl,
+        description: eventData.description,
+      };
+
+      await axios.post("http://localhost:5000/api/events", eventPayload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      onClose();
+    } catch (error) {
+      console.error("Error creating event:", error);
+    }
   };
 
   const onClose = () => {
     setEventData({
-      name: "",
+      title: "",
       cover: null,
       coverPreview: null,
-      startDate: "",
-      endDate: "",
       description: "",
     });
     setIsModalOpen(false);
@@ -77,17 +125,25 @@ const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
       <h2>Créer ton évenement</h2>
       <input
         type="text"
-        name="name"
+        name="title"
         placeholder="Event Name"
-        value={eventData.name}
+        value={eventData.title}
         onChange={handleInputChange}
       />
       <input
         type="file"
+        id="cover"
         name="cover"
         accept="image/*"
         onChange={handleInputChange}
+        className={styles.hiddenInput}
       />
+      {!eventData.coverPreview && (
+        <label htmlFor="cover" className={styles.customUpload}>
+          <FaImage className={styles.iconImg} />
+          <small>4MB Maximum</small>
+        </label>
+      )}
       {eventData.coverPreview && (
         <>
           <img
@@ -98,18 +154,6 @@ const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
           <span onClick={deleteImg}>X</span>
         </>
       )}
-      <input
-        type="date"
-        name="startDate"
-        value={eventData.startDate}
-        onChange={handleInputChange}
-      />
-      <input
-        type="date"
-        name="endDate"
-        value={eventData.endDate}
-        onChange={handleInputChange}
-      />
       <input
         type="text"
         name="description"

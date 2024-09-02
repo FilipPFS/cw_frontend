@@ -3,6 +3,7 @@ import styles from "./ImageModal.module.css";
 import grayBanner from "../../images/graybanner.webp";
 import { User } from "../SignlePost/SinglePost";
 import axios, { AxiosResponse } from "axios";
+import { FaImage } from "react-icons/fa";
 
 type Props = {
   avatar: boolean;
@@ -101,7 +102,10 @@ const ImageModal = ({ element, setIsModalOpen, avatar, setOverlay }: Props) => {
       console.error("Error submitting post:", error);
     }
   };
-  console.log(element);
+
+  const [view, setView] = useState(false);
+
+  console.log("RERENDERED");
 
   return (
     <div
@@ -110,16 +114,30 @@ const ImageModal = ({ element, setIsModalOpen, avatar, setOverlay }: Props) => {
       }`}
     >
       <div className={styles.modalContent}>
-        <span className={styles.close} onClick={closeModal}>
-          &times;
-        </span>
-
-        <label htmlFor="fileInput" className={styles.imagePreview}>
+        <label
+          htmlFor="fileInput"
+          className={`${styles.imagePreview} ${
+            avatar ? styles.imagePreviewAvatar : styles.imagePreviewBanner
+          }`}
+          onMouseEnter={() => setView(true)}
+          onMouseLeave={() => setView(false)}
+        >
           <img
             src={previewImage || (element ? element : grayBanner)}
             alt="Preview"
             className={`${avatar ? styles.previewImage : styles.bannerPreview}`}
           />
+          {view && (
+            <div
+              className={`${styles.mouseEvent} ${
+                avatar ? styles.mouseEventAvatar : styles.mouseEventBanner
+              }`}
+            >
+              <div className={styles.labelContent}>
+                <FaImage className={styles.labelIcon} />
+              </div>
+            </div>
+          )}
         </label>
 
         <input
@@ -130,9 +148,16 @@ const ImageModal = ({ element, setIsModalOpen, avatar, setOverlay }: Props) => {
           className={styles.fileInput}
         />
 
-        <button onClick={handleSubmit} className={styles.submitButton}>
-          Submit
-        </button>
+        <div className={styles.modalButtons}>
+          <button onClick={closeModal}>Annuler</button>
+          <button
+            disabled={!selectedImage}
+            onClick={handleSubmit}
+            className={styles.submitButton}
+          >
+            Changer
+          </button>
+        </div>
       </div>
     </div>
   );

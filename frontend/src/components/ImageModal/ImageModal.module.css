@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
-    background-color: rgb(223, 236, 236);
+    background-color: rgb(191, 241, 241);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 10px;
     padding: 20px 40px;
@@ -17,11 +17,54 @@
 .modalContent {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    align-items: flex-start
+}
+
+.imagePreview {
+    width: 100%;
+    position: relative;
+}
+
+.imagePreviewBanner {
+    height: 200px;
+}
+
+.imagePreviewAvatar {
+    height: 300px;
+}
+
+.mouseEvent {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.mouseEventAvatar {
+    border-radius: 50%;
+}
+
+.labelContent {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+}
+
+.labelIcon {
+    font-size: 100px;
+    color: white;
 }
 
 .bannerPreview {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -30,4 +73,35 @@
     width: 300px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.fileInput {
+    display: none;
+}
+
+.modalButtons {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.modalButtons button {
+    background-color: blue;
+    padding: 4px 8px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modalButtons button:hover {
+    background-color: blueviolet;
+}
+
+.modalButtons button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
 }
