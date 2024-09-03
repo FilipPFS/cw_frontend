@@ -41,9 +41,15 @@ const Event = (props: Props) => {
   };
 
   const getEvents = async () => {
+    const token = localStorage.getItem("token");
     try {
       const response: AxiosResponse<Event[]> = await axios.get(
-        "http://localhost:5000/api/events"
+        "http://localhost:5000/api/events",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (response) {
