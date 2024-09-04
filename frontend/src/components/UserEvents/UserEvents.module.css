@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    background-color: white;
+    width: 100%;
+}
+
+.eventsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}

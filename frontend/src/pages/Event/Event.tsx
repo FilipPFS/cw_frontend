@@ -40,6 +40,47 @@ const Event = (props: Props) => {
     }
   };
 
+  const deleteEvent = async (id: string) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response: AxiosResponse = await axios.delete(
+        `http://localhost:5000/api/events/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setEvents!(response.data.updatedEvents);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const subToEvent = async (id: string) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response: AxiosResponse = await axios.post(
+        `http://localhost:5000/api/events/like/${id}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response) {
+        setEvents!(response.data.sortedEvents);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const getEvents = async () => {
     const token = localStorage.getItem("token");
     try {
@@ -84,6 +125,9 @@ const Event = (props: Props) => {
                 createdAt={event.createdAt}
                 setEvents={setEvents}
                 sessionUser={sessionUser}
+                deleteEvent={deleteEvent}
+                subToEvent={subToEvent}
+                userPage={false}
               />
             );
           })}

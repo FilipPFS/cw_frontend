@@ -6,6 +6,7 @@ import axios, { AxiosResponse } from "axios";
 import UserImages from "../../components/UserImages/UserImages";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Posts, { Post } from "../../components/Posts/Posts";
+import UserEvents from "../../components/UserEvents/UserEvents";
 
 type Props = {};
 
@@ -14,6 +15,7 @@ const MyAccount = (props: Props) => {
   const [userPosts, setUserPosts] = useState<Post[]>([]);
   const [likedPosts, setLikedPosts] = useState<Post[]>([]);
   const [viewPosts, setViewPosts] = useState(true);
+  const [viewEvents, setViewEvents] = useState(false);
 
   const getSessionUser = async () => {
     const token = localStorage.getItem("token");
@@ -78,7 +80,20 @@ const MyAccount = (props: Props) => {
     getLikedPosts();
   }, []);
 
-  console.log("Liked posts", likedPosts);
+  const handleEvents = () => {
+    setViewEvents(true);
+    setViewPosts(false);
+  };
+
+  const handlePosts = () => {
+    setViewPosts(true);
+    setViewEvents(false);
+  };
+
+  const handleLikes = () => {
+    setViewPosts(false);
+    setViewEvents(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -94,41 +109,52 @@ const MyAccount = (props: Props) => {
         )}
         <div className={styles.btns}>
           <button
-            onClick={() => setViewPosts(true)}
+            onClick={handlePosts}
             className={viewPosts ? styles.activeBtn : ""}
           >
             Mes posts
           </button>
           <button
-            onClick={() => setViewPosts(false)}
-            className={!viewPosts ? styles.activeBtn : ""}
+            onClick={handleLikes}
+            className={!viewEvents && !viewPosts ? styles.activeBtn : ""}
           >
             Mes j'aimes
           </button>
+          <button
+            onClick={handleEvents}
+            className={viewEvents ? styles.activeBtn : ""}
+          >
+            Mes évenements
+          </button>
         </div>
-        {viewPosts ? (
+        {!viewEvents && (
           <>
-            {userPosts && (
-              <Posts
-                posts={userPosts}
-                setPosts={setUserPosts}
-                homePage={false}
-                editable={true}
-              />
-            )}
-          </>
-        ) : (
-          <>
-            {likedPosts && (
-              <Posts
-                posts={likedPosts}
-                setPosts={setLikedPosts}
-                homePage={false}
-                editable={false}
-              />
+            {viewPosts ? (
+              <>
+                {userPosts && (
+                  <Posts
+                    posts={userPosts}
+                    setPosts={setUserPosts}
+                    homePage={false}
+                    editable={true}
+                  />
+                )}
+              </>
+            ) : (
+              <>
+                {likedPosts && (
+                  <Posts
+                    posts={likedPosts}
+                    setPosts={setLikedPosts}
+                    homePage={false}
+                    editable={false}
+                  />
+                )}
+              </>
             )}
           </>
         )}
+        {viewEvents && <UserEvents user={sessionUser} />}
       </div>
     </div>
   );

@@ -9,8 +9,11 @@ import { FaEye, FaTrash, FaWindowClose } from "react-icons/fa";
 import EventParticipants from "../EventParticipants/EventParticipants";
 
 type Props = Event & {
-  setEvents: React.Dispatch<React.SetStateAction<Event[]>>;
+  setEvents?: React.Dispatch<React.SetStateAction<Event[]>>;
   sessionUser: User | undefined;
+  deleteEvent: (id: string) => void;
+  subToEvent: (id: string) => Promise<void>;
+  userPage: boolean;
 };
 
 const SingleEvent = ({
@@ -22,6 +25,9 @@ const SingleEvent = ({
   participants,
   setEvents,
   sessionUser,
+  deleteEvent,
+  subToEvent,
+  userPage,
 }: Props) => {
   const [user, setUser] = useState<User>();
   const [eventModal, setEventModal] = useState(false);
@@ -38,48 +44,6 @@ const SingleEvent = ({
     }
   };
 
-  const deleteEvent = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response: AxiosResponse<Event[]> = await axios.delete(
-        `http://localhost:5000/api/events/${_id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        setEvents(response.data);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const subToEvent = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response: AxiosResponse<Event[]> = await axios.post(
-        `http://localhost:5000/api/events/like/${_id}`,
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response) {
-        setEvents(response.data);
-        console.log("Subsribed");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
     getUser();
   }, []);
@@ -87,7 +51,11 @@ const SingleEvent = ({
   const subbed = participants.find((user) => user.userId === sessionUser?._id);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        userPage ? styles.userEvent : styles.pageEvent
+      }`}
+    >
       {eventModal && (
         <div
           onClick={() => setEventModal(false)}
@@ -123,7 +91,10 @@ const SingleEvent = ({
         {sessionUser && (
           <>
             {sessionUser?._id === hostId && (
-              <button onClick={deleteEvent} className={styles.eventBtn}>
+              <button
+                onClick={() => deleteEvent(_id)}
+                className={styles.eventBtn}
+              >
                 <FaTrash />
                 <span>Supprimer l'événement</span>
               </button>
@@ -131,7 +102,7 @@ const SingleEvent = ({
             {sessionUser._id !== hostId ? (
               <button
                 disabled={sessionUser._id === hostId}
-                onClick={subToEvent}
+                onClick={() => subToEvent(_id)}
                 className={styles.eventBtn}
               >
                 {subbed ? "Abonné" : "Participer"}
