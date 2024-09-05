@@ -32,6 +32,7 @@ const CreateEventModal: React.FC<Props> = ({
     coverPreview: null,
     description: "",
   });
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -114,7 +115,16 @@ const CreateEventModal: React.FC<Props> = ({
         });
       }
     } catch (error) {
-      console.error("Error creating event:", error);
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage = error.response.data.message || "An error occurred";
+        setErrorMsg(errorMessage);
+        setTimeout(() => {
+          setErrorMsg("");
+        }, 5000);
+      } else {
+        console.error("Error creating event:", error);
+        setErrorMsg("An error occurred");
+      }
     }
   };
 
@@ -178,6 +188,7 @@ const CreateEventModal: React.FC<Props> = ({
         onChange={handleInputChange}
         className={styles.desc}
       />
+      {errorMsg && <small className={styles.errorMsg}>{errorMsg}</small>}
       <button onClick={handleSubmit}>Créer l'évenement</button>
       <button onClick={onClose}>Annuler</button>
     </div>

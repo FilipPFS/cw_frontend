@@ -59,3 +59,8 @@
     object-fit: cover;
     height: 100px;
 }
+
+.errorMsg {
+    align-self: center;
+    color: red;
+}

@@ -7,6 +7,7 @@ import UserImages from "../../components/UserImages/UserImages";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Posts, { Post } from "../../components/Posts/Posts";
 import UserEvents from "../../components/UserEvents/UserEvents";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -108,18 +109,22 @@ const MyAccount = (props: Props) => {
           />
         )}
         <div className={styles.btns}>
-          <button
-            onClick={handlePosts}
-            className={viewPosts ? styles.activeBtn : ""}
-          >
-            Mes posts
-          </button>
-          <button
-            onClick={handleLikes}
-            className={!viewEvents && !viewPosts ? styles.activeBtn : ""}
-          >
-            Mes j'aimes
-          </button>
+          <Link to="/my-account#posts">
+            <button
+              onClick={handlePosts}
+              className={viewPosts ? styles.activeBtn : ""}
+            >
+              Mes posts
+            </button>
+          </Link>
+          <Link to="/my-account#likes">
+            <button
+              onClick={handleLikes}
+              className={!viewEvents && !viewPosts ? styles.activeBtn : ""}
+            >
+              Mes j'aimes
+            </button>
+          </Link>
           <button
             onClick={handleEvents}
             className={viewEvents ? styles.activeBtn : ""}

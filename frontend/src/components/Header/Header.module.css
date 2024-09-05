@@ -1,72 +1,74 @@
 .header {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0px;
-    margin-top: 25px;
-    width: 25%;
-    margin-right: 20px;
-    background-color: white;
-    padding: 10px;
-    height: fit-content;
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0px;
+  margin-top: 25px;
+  width: 25%;
+  margin-right: 20px;
+  background-color: white;
+  padding: 10px;
+  height: fit-content;
+  border-radius: 10px;
+  top: 5px;
+  position: sticky;
 }
 
 .nav {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
 .logoContainer {
-    width: 100%;
+  width: 100%;
 }
 
 .logoContainer img {
-    width: 100%;
+  width: 100%;
 }
 
 .nav a {
-    display: flex;
-    gap: 13px;
-    align-items: center;
-    padding: 10px;
-    border-radius: 5px;
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .nav a:hover {
-    background-color: rgb(229, 238, 241);
+  background-color: rgb(229, 238, 241);
 }
 
 .icon {
-    width: 15%;
-    font-size: 25px;
+  width: 15%;
+  font-size: 25px;
 }
 
 .userLinkImg {
-    width: 15%;
+  width: 15%;
 }
 
 .userLinkImg img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .signOutBtn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-    padding: 6px 0;
-    border-radius: 5px;
-    background-color: rgb(10, 10, 107);
-    border: none;
-    color: white;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  padding: 6px 0;
+  border-radius: 5px;
+  background-color: rgb(10, 10, 107);
+  border: none;
+  color: white;
+  cursor: pointer;
 }
 
 .signOutBtn:hover {
-    background-color: rgb(96, 41, 148);
+  background-color: rgb(96, 41, 148);
 }

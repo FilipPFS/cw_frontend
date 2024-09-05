@@ -19,8 +19,12 @@
     width: 100%;
 }
 
+.btns a {
+    width: 100%;
+}
+
 .btns button {
-    width: 50%;
+    width: 100%;
     padding: 10px;
     cursor: pointer;
     border: none;

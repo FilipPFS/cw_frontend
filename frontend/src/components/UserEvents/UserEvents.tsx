@@ -102,6 +102,7 @@ const UserEvents = ({ user }: Props) => {
           return (
             <SingleEvent
               {...event}
+              key={event._id}
               sessionUser={user}
               deleteEvent={deleteEvent}
               subToEvent={subToEvent}
