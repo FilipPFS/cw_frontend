@@ -6,6 +6,8 @@ import noAvatar from "../../images/no-avatar.png";
 import { FaComment, FaRegThumbsUp, FaThumbsUp, FaTrash } from "react-icons/fa";
 import Comments from "../Comments/Comments";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import GlobalModal from "../GlobalModal/GlobalModal";
 
 type SinglePostProps = Post & {
   addLike: (postId: string) => void;
@@ -44,6 +46,7 @@ const SinglePost: React.FC<SinglePostProps> = ({
   const [users, setUsers] = useState<User[]>([]);
   const [viewComments, setViewComments] = useState(false);
   const [sessionsUser, setSessionUser] = useState<User>();
+  const [openModal, setOpenModal] = useState(false);
 
   const getUsers = async () => {
     try {
@@ -105,7 +108,10 @@ const SinglePost: React.FC<SinglePostProps> = ({
         }
       );
 
-      setPosts(response.data);
+      if (response) {
+        setPosts(response.data);
+        toast.success("Le post a été supprimé.");
+      }
     } catch (err) {
       console.error(err);
     }
@@ -134,9 +140,17 @@ const SinglePost: React.FC<SinglePostProps> = ({
           </div>
         </div>
         {editable && (
-          <span className={styles.trash} onClick={deletePost}>
+          <span className={styles.trash} onClick={() => setOpenModal(true)}>
             <FaTrash className={styles.trashIcon} />
           </span>
+        )}
+        {openModal && (
+          <GlobalModal
+            open={openModal}
+            question="Etes-vous sûr de vouloir supprimer ce post?"
+            validate={deletePost}
+            cancel={setOpenModal}
+          />
         )}
       </div>
       <div className={styles.content}>

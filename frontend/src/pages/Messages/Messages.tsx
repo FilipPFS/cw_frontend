@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import axios, { AxiosResponse } from "axios";
 import { Message } from "../Chat/Chat";
 import MessageModal from "../../components/MessageModal/MessageModal";
+import { FaEnvelope, FaRegEnvelope } from "react-icons/fa";
 
 type Props = {};
 
@@ -40,7 +41,10 @@ const Messages = (props: Props) => {
     <div className={styles.container}>
       <Header />
       <div className={styles.homeContainer}>
-        <h2>Vos messages</h2>
+        <h2 className={styles.title}>
+          <FaRegEnvelope />
+          Vos messages
+        </h2>
         {lastMessages.map((message, index) => (
           <MessageModal
             key={index}

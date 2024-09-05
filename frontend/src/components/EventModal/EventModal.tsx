@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { type Dispatch, type SetStateAction, useState } from "react";
 import styles from "./EventModal.module.css";
 import axios, { AxiosResponse } from "axios";
 import { FaImage } from "react-icons/fa";
+import { type Event } from "../../pages/Event/Event";
+import { toast } from "react-toastify";
 
 interface EventData {
   title: string;
@@ -13,12 +15,17 @@ interface EventData {
 interface Props {
   isModalOpen: boolean;
   setIsModalOpen: (open: boolean) => void;
+  setEvents?: Dispatch<SetStateAction<Event[]>>;
 }
 
 const MAX_FILE_SIZE_MB = 4;
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
-const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
+const CreateEventModal: React.FC<Props> = ({
+  isModalOpen,
+  setIsModalOpen,
+  setEvents,
+}) => {
   const [eventData, setEventData] = useState<EventData>({
     title: "",
     cover: null,
@@ -56,14 +63,12 @@ const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
 
   const uploadImageToCloudinary = async (base64Image: string) => {
     try {
-      console.log("Transfering image", base64Image);
       const response: AxiosResponse<{ url: string }> = await axios.post(
         "http://localhost:5000/api/upload/event",
         {
           img: base64Image,
         }
       );
-      console.log(response.data.url);
 
       return response.data.url;
     } catch (error) {
@@ -71,6 +76,7 @@ const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
       return null;
     }
   };
+
   const handleSubmit = async () => {
     const token = localStorage.getItem("token");
 
@@ -90,13 +96,23 @@ const CreateEventModal: React.FC<Props> = ({ isModalOpen, setIsModalOpen }) => {
         description: eventData.description,
       };
 
-      await axios.post("http://localhost:5000/api/events", eventPayload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response: AxiosResponse<Event[]> = await axios.post(
+        "http://localhost:5000/api/events",
+        eventPayload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       onClose();
+      if (response.status === 201) {
+        setEvents?.(response.data);
+        toast.success("Ajouté avec succès.", {
+          autoClose: 1500,
+        });
+      }
     } catch (error) {
       console.error("Error creating event:", error);
     }

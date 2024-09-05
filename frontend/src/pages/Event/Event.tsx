@@ -4,6 +4,9 @@ import styles from "./Event.module.css";
 import axios, { AxiosResponse } from "axios";
 import SingleEvent from "../../components/SingleEvent/SingleEvent";
 import { User } from "../../components/SignlePost/SinglePost";
+import { FaCalendarAlt } from "react-icons/fa";
+import CreateEventModal from "../../components/EventModal/EventModal";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -20,6 +23,7 @@ export type Event = {
 const Event = (props: Props) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [sessionUser, setSessionUser] = useState<User>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getSessionUser = async () => {
     const token = localStorage.getItem("token");
@@ -54,6 +58,7 @@ const Event = (props: Props) => {
 
       if (response.status === 200) {
         setEvents!(response.data.updatedEvents);
+        toast.success("Action was successful!");
       }
     } catch (err) {
       console.error(err);
@@ -109,8 +114,29 @@ const Event = (props: Props) => {
   return (
     <div className={styles.container}>
       <Header />
+      {isModalOpen && (
+        <div
+          className={styles.overlay}
+          onClick={() => setIsModalOpen(false)}
+        ></div>
+      )}
       <div className={styles.mainContainer}>
-        <h2>Les événements</h2>
+        <div className={styles.eventHeader}>
+          <h2 className={styles.title}>
+            <FaCalendarAlt />
+            Les événements
+          </h2>
+          <button onClick={() => setIsModalOpen(true)}>
+            Créer un évènement
+          </button>
+        </div>
+        {isModalOpen && (
+          <CreateEventModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            setEvents={setEvents}
+          />
+        )}
         <div className={styles.events}>
           {events.map((event) => {
             return (

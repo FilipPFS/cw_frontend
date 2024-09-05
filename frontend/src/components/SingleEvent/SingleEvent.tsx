@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import noAvatar from "../../images/no-avatar.png";
 import { FaEye, FaTrash, FaWindowClose } from "react-icons/fa";
 import EventParticipants from "../EventParticipants/EventParticipants";
+import GlobalModal from "../GlobalModal/GlobalModal";
 
 type Props = Event & {
   setEvents?: React.Dispatch<React.SetStateAction<Event[]>>;
@@ -31,6 +32,7 @@ const SingleEvent = ({
 }: Props) => {
   const [user, setUser] = useState<User>();
   const [eventModal, setEventModal] = useState(false);
+  const [checkModal, setCheckModal] = useState(false);
 
   const getUser = async () => {
     try {
@@ -49,6 +51,8 @@ const SingleEvent = ({
   }, []);
 
   const subbed = participants.find((user) => user.userId === sessionUser?._id);
+
+  const handleDelete = () => deleteEvent(_id);
 
   return (
     <div
@@ -92,7 +96,7 @@ const SingleEvent = ({
           <>
             {sessionUser?._id === hostId && (
               <button
-                onClick={() => deleteEvent(_id)}
+                onClick={() => setCheckModal(true)}
                 className={styles.eventBtn}
               >
                 <FaTrash />
@@ -119,6 +123,14 @@ const SingleEvent = ({
           </>
         )}
       </div>
+      {checkModal && (
+        <GlobalModal
+          open={checkModal}
+          question="Etes vous sûr de vouloir supprimer cet évènement?"
+          validate={handleDelete}
+          cancel={setCheckModal}
+        />
+      )}
       {eventModal && (
         <section className={styles.modal}>
           <div className={styles.modalContent}>

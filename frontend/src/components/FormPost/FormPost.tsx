@@ -5,6 +5,7 @@ import styles from "./FormPost.module.css";
 import CreateEventModal from "../EventModal/EventModal";
 import noAvatar from "../../images/no-avatar.png";
 import { User } from "../../user";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -116,6 +117,7 @@ const FormPost = (props: Props) => {
       );
 
       if (response) {
+        toast.success("Le post a été publié.");
         window.location.reload();
       }
 

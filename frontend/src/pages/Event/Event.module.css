@@ -6,6 +6,36 @@
     padding: 0 20px;
 }
 
+.eventHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.eventHeader button {
+    padding: 5px 10px;
+    background-color: blue;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.eventHeader button:hover {
+    background-color: blueviolet;
+}
+
+.eventHeader button:active {
+    background-color: rgb(6, 6, 103)
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .mainContainer {
     display: flex;
     flex-direction: column;
@@ -21,4 +51,14 @@
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
 }

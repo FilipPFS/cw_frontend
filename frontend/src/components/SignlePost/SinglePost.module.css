@@ -134,4 +134,9 @@
 .trashIcon {
     font-size: 18px;
     color: rgb(18, 18, 78);
+    cursor: pointer;
+}
+
+.trashIcon:hover {
+    color: rgb(45, 45, 117);
 }
