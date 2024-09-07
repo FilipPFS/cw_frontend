@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import {
   FaBible,
   FaCalendar,
+  FaCalendarAlt,
   FaEnvelope,
   FaHome,
   FaMusic,
   FaSignOutAlt,
+  FaUserFriends,
 } from "react-icons/fa";
 import logo from "../../images/logo.webp";
 import styles from "./Header.module.css";
@@ -56,12 +58,16 @@ const Header = (props: Props) => {
           <FaHome className={styles.icon} />
           Accueil
         </Link>
+        <Link to={"/friends"}>
+          <FaUserFriends className={styles.icon} />
+          Mes amis
+        </Link>
         <Link to={"/messages"}>
           <FaEnvelope className={styles.icon} />
           Messages
         </Link>
         <Link to={"/events"}>
-          <FaCalendar className={styles.icon} />
+          <FaCalendarAlt className={styles.icon} />
           Evenements
         </Link>
         <Link to={"/bible"}>

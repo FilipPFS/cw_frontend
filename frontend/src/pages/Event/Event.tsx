@@ -58,7 +58,7 @@ const Event = (props: Props) => {
 
       if (response.status === 200) {
         setEvents!(response.data.updatedEvents);
-        toast.success("Action was successful!");
+        toast.success("L'évènement a été supprimé");
       }
     } catch (err) {
       console.error(err);
@@ -124,7 +124,7 @@ const Event = (props: Props) => {
         <div className={styles.eventHeader}>
           <h2 className={styles.title}>
             <FaCalendarAlt />
-            Les événements
+            Les évènements
           </h2>
           <button onClick={() => setIsModalOpen(true)}>
             Créer un évènement

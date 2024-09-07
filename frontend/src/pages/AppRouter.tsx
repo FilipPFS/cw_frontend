@@ -12,6 +12,7 @@ import Messages from "./Messages/Messages";
 import Chat from "./Chat/Chat";
 import Bible from "./Bible/Bible";
 import Event from "./Event/Event";
+import Friends from "./Friends/Friends";
 
 type Props = {};
 
@@ -31,6 +32,7 @@ const AppRouter = (props: Props) => {
             <Route path="bible" element={<Bible />} />
             <Route path="music" element={<Bible />} />
             <Route path="events" element={<Event />} />
+            <Route path="friends" element={<Friends />} />
           </>
         ) : (
           <>

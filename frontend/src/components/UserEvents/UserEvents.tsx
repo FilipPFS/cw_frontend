@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import SingleEvent from "../SingleEvent/SingleEvent";
 import { type User } from "../SignlePost/SinglePost";
 import styles from "./UserEvents.module.css";
+import { toast } from "react-toastify";
 
 type Props = {
   user: User | undefined;
@@ -28,6 +29,7 @@ const UserEvents = ({ user }: Props) => {
       if (response.status === 200) {
         setHostedEvents(response.data.hostedEvents);
         setParticipantEvents(response.data.participantEvents);
+        toast.success("L'évènement a été supprimé.");
       }
     } catch (err) {
       console.error(err);

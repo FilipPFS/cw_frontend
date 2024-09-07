@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
-import { FaImage, FaCalendar } from "react-icons/fa";
+import { FaImage, FaCalendar, FaCalendarAlt } from "react-icons/fa";
 import styles from "./FormPost.module.css";
 import CreateEventModal from "../EventModal/EventModal";
 import noAvatar from "../../images/no-avatar.png";
@@ -176,7 +176,7 @@ const FormPost = (props: Props) => {
               <FaImage className={styles.icon} />
             </span>
             <span onClick={() => setIsModalOpen(true)}>
-              <FaCalendar className={styles.icon} />
+              <FaCalendarAlt className={styles.icon} />
             </span>
           </div>
           <input

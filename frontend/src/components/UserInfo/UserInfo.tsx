@@ -1,14 +1,18 @@
 import styles from "./UserInfo.module.css";
 import { User } from "../SignlePost/SinglePost";
 import { FaPen } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import FriendRequest from "../UserFriend/UserFriend";
 
 type Props = {
   editable: boolean;
   user: User;
+  session?: User;
   setSessionUser?: React.Dispatch<React.SetStateAction<User | undefined>>;
+  setUser?: React.Dispatch<React.SetStateAction<User | undefined>>;
 };
 
 type UserInfos = {
@@ -17,7 +21,25 @@ type UserInfos = {
   description: string;
 };
 
-const UserInfo = ({ user, editable, setSessionUser }: Props) => {
+export type FriendRequest = {
+  _id: string;
+  senderId: string;
+  receiverId: string;
+  accepted: boolean;
+};
+
+export type DataRequest = {
+  sentRequest: boolean;
+  friendRequest: FriendRequest;
+};
+
+const UserInfo = ({
+  user,
+  editable,
+  setSessionUser,
+  session,
+  setUser,
+}: Props) => {
   const [modal, setModal] = useState(false);
   const [userInfos, setUserInfos] = useState<UserInfos>({
     firstName: "",
@@ -78,9 +100,17 @@ const UserInfo = ({ user, editable, setSessionUser }: Props) => {
               {user.firstName} {user.lastName}
             </h2>
             {!editable && (
-              <Link to={`/messages/${user._id}`}>
-                <button>Message</button>
-              </Link>
+              <>
+                <FriendRequest
+                  user={user}
+                  userId={user._id}
+                  sessionId={session?._id}
+                  setUser={setUser}
+                />
+                <Link to={`/messages/${user._id}`}>
+                  <button>Message</button>
+                </Link>
+              </>
             )}
           </div>
           <p>{user.description}</p>

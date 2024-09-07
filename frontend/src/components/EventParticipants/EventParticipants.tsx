@@ -7,9 +7,11 @@ import styles from "./EventParticipants.module.css";
 
 type Props = {
   userId: string;
+  deleteFriend?: (userId: string) => Promise<void>;
+  friendPage?: boolean;
 };
 
-const EventParticipants = ({ userId }: Props) => {
+const EventParticipants = ({ userId, friendPage, deleteFriend }: Props) => {
   const [user, setUser] = useState<User>();
 
   const getUser = async () => {
@@ -38,6 +40,14 @@ const EventParticipants = ({ userId }: Props) => {
           {user?.firstName} {user?.lastName}
         </h3>
       </Link>
+      {friendPage && (
+        <button
+          onClick={() => deleteFriend?.(userId)}
+          className={styles.deleteBtn}
+        >
+          Supprimer
+        </button>
+      )}
     </section>
   );
 };

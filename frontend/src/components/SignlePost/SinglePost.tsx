@@ -28,7 +28,7 @@ export type User = {
   userPosts: [];
   likedPosts: string[];
   userEvents: [];
-  friends: [];
+  friends: string[];
 };
 
 const SinglePost: React.FC<SinglePostProps> = ({

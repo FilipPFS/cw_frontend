@@ -1,7 +1,7 @@
 import React, { type Dispatch, type SetStateAction, useState } from "react";
 import styles from "./EventModal.module.css";
 import axios, { AxiosResponse } from "axios";
-import { FaImage } from "react-icons/fa";
+import { FaImage, FaWindowClose } from "react-icons/fa";
 import { type Event } from "../../pages/Event/Event";
 import { toast } from "react-toastify";
 
@@ -152,7 +152,7 @@ const CreateEventModal: React.FC<Props> = ({
       <input
         type="text"
         name="title"
-        placeholder="Event Name"
+        placeholder="Titre"
         value={eventData.title}
         onChange={handleInputChange}
       />
@@ -177,7 +177,7 @@ const CreateEventModal: React.FC<Props> = ({
             alt="Event Cover Preview"
             className={styles.imagePreview}
           />
-          <span onClick={deleteImg}>X</span>
+          <FaWindowClose onClick={deleteImg} className={styles.closeIcon} />
         </>
       )}
       <input

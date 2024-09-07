@@ -10,3 +10,21 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.deleteBtn {
+    padding: 4px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    background-color: red;
+    cursor: pointer;
+}
+
+.deleteBtn:hover {
+    background-color: rgb(188, 15, 15);
+}
+
+.deleteBtn:active {
+    background-color: rgb(133, 8, 8);
+}

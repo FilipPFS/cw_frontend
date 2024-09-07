@@ -76,7 +76,14 @@ const UserAccount = (props: Props) => {
       <Header />
       <div className={styles.homeContainer}>
         {user && <UserImages user={user} isEditable={false} />}
-        {user && <UserInfo user={user} editable={false} />}
+        {user && (
+          <UserInfo
+            user={user}
+            editable={false}
+            session={sessionUser}
+            setUser={setUser}
+          />
+        )}
         <Posts
           posts={userPosts}
           setPosts={setUserPosts}
