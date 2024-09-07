@@ -9,12 +9,14 @@ import { useEffect, useState } from "react";
 type Props = {};
 
 const Home: React.FC<Props> = () => {
+  const token = localStorage.getItem("token");
   const [posts, setPosts] = useState<Post[]>([]);
 
   const getPosts = async () => {
     try {
       const response: AxiosResponse<Post[]> = await axios.get(
-        "http://localhost:5000/api/posts"
+        "http://localhost:5000/api/posts",
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setPosts(response.data);
     } catch (err) {
@@ -33,6 +35,7 @@ const Home: React.FC<Props> = () => {
         <div className={styles.homePosts}>
           <FormPost />
           <Posts
+            fetchPosts={getPosts}
             posts={posts}
             setPosts={setPosts}
             homePage={true}

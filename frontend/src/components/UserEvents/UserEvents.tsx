@@ -5,6 +5,7 @@ import SingleEvent from "../SingleEvent/SingleEvent";
 import { type User } from "../SignlePost/SinglePost";
 import styles from "./UserEvents.module.css";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 type Props = {
   user: User | undefined;
@@ -86,32 +87,51 @@ const UserEvents = ({ user }: Props) => {
     <div className={styles.container}>
       <section className={styles.eventsContainer}>
         <h2>J'organise</h2>
-        {hostedEvents.map((event) => {
-          return (
-            <SingleEvent
-              {...event}
-              sessionUser={user}
-              deleteEvent={deleteEvent}
-              subToEvent={subToEvent}
-              userPage={true}
-            />
-          );
-        })}
+        {hostedEvents.length > 0 ? (
+          <>
+            {hostedEvents.map((event) => {
+              return (
+                <SingleEvent
+                  {...event}
+                  sessionUser={user}
+                  deleteEvent={deleteEvent}
+                  subToEvent={subToEvent}
+                  userPage={true}
+                />
+              );
+            })}
+          </>
+        ) : (
+          <span className={styles.eventInfo}>
+            Vous n'avez créer aucun évènement pour le moment.{" "}
+            <Link to={"/events"}>Créer un évènement.</Link>
+          </span>
+        )}
       </section>
       <section className={styles.eventsContainer}>
         <h2>Je participe</h2>
-        {participantEvents.map((event) => {
-          return (
-            <SingleEvent
-              {...event}
-              key={event._id}
-              sessionUser={user}
-              deleteEvent={deleteEvent}
-              subToEvent={subToEvent}
-              userPage={true}
-            />
-          );
-        })}
+        {participantEvents.length > 0 ? (
+          <>
+            {" "}
+            {participantEvents.map((event) => {
+              return (
+                <SingleEvent
+                  {...event}
+                  key={event._id}
+                  sessionUser={user}
+                  deleteEvent={deleteEvent}
+                  subToEvent={subToEvent}
+                  userPage={true}
+                />
+              );
+            })}
+          </>
+        ) : (
+          <span className={styles.eventInfo}>
+            Vous ne participez à aucun évènement pour le moment.{" "}
+            <Link to={"/events"}>Vois les évènements.</Link>
+          </span>
+        )}
       </section>
     </div>
   );

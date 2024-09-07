@@ -6,6 +6,7 @@ import { useLocation, useParams } from "react-router-dom";
 
 type Props = {
   posts: Post[];
+  fetchPosts?: () => Promise<void>;
   setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
   homePage: boolean;
   editable: boolean;
@@ -21,7 +22,7 @@ export type Post = {
   createdAt: string;
 };
 
-const Posts = ({ posts, setPosts, homePage, editable }: Props) => {
+const Posts = ({ posts, fetchPosts, setPosts, homePage, editable }: Props) => {
   const location = useLocation();
   const { hash } = useLocation();
   const { userId } = useParams();
@@ -48,7 +49,7 @@ const Posts = ({ posts, setPosts, homePage, editable }: Props) => {
         );
 
       if (location.pathname === "/") {
-        setPosts(response.data.posts);
+        fetchPosts?.();
       } else if (hash === "#posts") {
         setPosts(response.data.userPosts);
       } else if (hash === "#likes") {

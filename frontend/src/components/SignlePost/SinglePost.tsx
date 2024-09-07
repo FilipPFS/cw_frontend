@@ -3,7 +3,14 @@ import styles from "./SinglePost.module.css";
 import { Post } from "../Posts/Posts";
 import axios, { AxiosResponse } from "axios";
 import noAvatar from "../../images/no-avatar.png";
-import { FaComment, FaRegThumbsUp, FaThumbsUp, FaTrash } from "react-icons/fa";
+import {
+  FaComment,
+  FaRegThumbsUp,
+  FaRegWindowClose,
+  FaThumbsUp,
+  FaTrash,
+  FaWindowClose,
+} from "react-icons/fa";
 import Comments from "../Comments/Comments";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -47,6 +54,7 @@ const SinglePost: React.FC<SinglePostProps> = ({
   const [viewComments, setViewComments] = useState(false);
   const [sessionsUser, setSessionUser] = useState<User>();
   const [openModal, setOpenModal] = useState(false);
+  const [clickedImage, setClickedImage] = useState(false);
 
   const getUsers = async () => {
     try {
@@ -123,6 +131,12 @@ const SinglePost: React.FC<SinglePostProps> = ({
         homePage ? styles.singleHomePost : styles.singleUserPost
       }`}
     >
+      {clickedImage && (
+        <div
+          className={styles.overlay}
+          onClick={() => setClickedImage(false)}
+        ></div>
+      )}
       <div className={styles.informations}>
         <div className={styles.userInfo}>
           <div className={styles.imgCtn}>
@@ -157,8 +171,22 @@ const SinglePost: React.FC<SinglePostProps> = ({
         {content && <p>{content}</p>}
         {img && (
           <div className={styles.postImgCtn}>
-            <img src={img} alt="post" className={styles.postImg} />
+            <img
+              src={img}
+              alt="post"
+              className={styles.postImg}
+              onClick={() => setClickedImage(true)}
+            />
           </div>
+        )}
+        {clickedImage && (
+          <>
+            <img src={img} alt="post" className={styles.clickedImage} />
+            <FaRegWindowClose
+              className={styles.closeImage}
+              onClick={() => setClickedImage(false)}
+            />
+          </>
         )}
         <div className={styles.reactions}>
           <div className={styles.reactionsLikes}>
