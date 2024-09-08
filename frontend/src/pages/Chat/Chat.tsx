@@ -104,7 +104,6 @@ const Chat = (props: Props) => {
 
   return (
     <div className={styles.container}>
-      <Header />
       <div className={styles.mainContainer}>
         <div className={styles.userInfo}>
           <img src={user?.avatar ? user.avatar : noAvatar} />

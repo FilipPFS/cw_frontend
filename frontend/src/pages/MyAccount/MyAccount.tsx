@@ -98,7 +98,6 @@ const MyAccount = (props: Props) => {
 
   return (
     <div className={styles.container}>
-      <Header />
       <div className={styles.homeContainer}>
         {sessionUser && <UserImages user={sessionUser} isEditable={true} />}
         {sessionUser && (

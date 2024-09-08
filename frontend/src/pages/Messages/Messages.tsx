@@ -39,8 +39,7 @@ const Messages = (props: Props) => {
 
   return (
     <div className={styles.container}>
-      <Header />
-      <div className={styles.homeContainer}>
+      <div className={styles.mainContainer}>
         <h2 className={styles.title}>
           <FaRegEnvelope />
           Vos messages

@@ -51,7 +51,6 @@ const Home: React.FC<Props> = () => {
 
   return (
     <div className={styles.container}>
-      <Header />
       <div className={styles.homeContainer}>
         <div className={styles.homePosts}>
           <FormPost setPosts={setPosts} />

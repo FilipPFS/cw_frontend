@@ -11,39 +11,17 @@ import {
 } from "react-icons/fa";
 import logo from "../../images/logo.webp";
 import styles from "./Header.module.css";
-import { User, user } from "../../user";
+import { user } from "../../user";
 import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import noAvatar from "../../images/no-avatar.png";
+import { User } from "../SignlePost/SinglePost";
 
-type Props = {};
+type Props = {
+  sessionUser?: User;
+};
 
-const Header = (props: Props) => {
-  const [user, setUser] = useState<User>();
-
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response: AxiosResponse<User> = await axios.get(
-        "http://localhost:5000/api/users/session",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getSessionUser();
-  }, []);
-
+const Header = ({ sessionUser }: Props) => {
   const signOut = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -80,9 +58,9 @@ const Header = (props: Props) => {
         </Link>
         <Link to={"/my-account"} className={styles.userLink}>
           <div className={styles.userLinkImg}>
-            <img src={user?.avatar ? user?.avatar : noAvatar} />
+            <img src={sessionUser?.avatar ? sessionUser?.avatar : noAvatar} />
           </div>
-          {`${user?.firstName} ${user?.lastName}`}
+          {`${sessionUser?.firstName} ${sessionUser?.lastName}`}
         </Link>
         <button onClick={signOut} className={styles.signOutBtn}>
           <FaSignOutAlt />

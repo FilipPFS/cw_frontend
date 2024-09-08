@@ -7,7 +7,6 @@ type Props = {};
 const Bible = (props: Props) => {
   return (
     <div className={styles.container}>
-      <Header />
       <div className={styles.mainContainer}>
         <div className={styles.lock}>
           <FaLock className={styles.icon} />

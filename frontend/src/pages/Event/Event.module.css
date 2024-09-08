@@ -62,3 +62,17 @@
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 1;
 }
+
+.closeModal {
+    z-index: 3;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    position: fixed;
+    top: 50px;
+    right: 50px;
+}
+
+.closeModal:hover {
+    color: rgb(230, 217, 217);
+}

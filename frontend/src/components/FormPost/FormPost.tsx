@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
-import { FaImage, FaCalendar, FaCalendarAlt } from "react-icons/fa";
+import {
+  FaImage,
+  FaCalendar,
+  FaCalendarAlt,
+  FaRegWindowClose,
+} from "react-icons/fa";
 import styles from "./FormPost.module.css";
 import CreateEventModal from "../EventModal/EventModal";
 import noAvatar from "../../images/no-avatar.png";
@@ -202,7 +207,18 @@ const FormPost = ({ setPosts }: Props) => {
           setIsModalOpen={setIsModalOpen}
         />
       )}
-      {isModalOpen && <div className={styles.overlay}></div>}
+      {isModalOpen && (
+        <>
+          <div
+            className={styles.overlay}
+            onClick={() => setIsModalOpen(false)}
+          ></div>
+          <FaRegWindowClose
+            className={styles.closeModal}
+            onClick={() => setIsModalOpen(false)}
+          />
+        </>
+      )}
     </div>
   );
 };

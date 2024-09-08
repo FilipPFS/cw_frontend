@@ -113,7 +113,6 @@ const Friends = (props: Props) => {
 
   return (
     <div className={styles.container}>
-      <Header />
       <div className={styles.mainContainer}>
         <h2 className={styles.title}>
           <FaUserFriends />

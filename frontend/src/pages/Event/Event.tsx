@@ -4,7 +4,7 @@ import styles from "./Event.module.css";
 import axios, { AxiosResponse } from "axios";
 import SingleEvent from "../../components/SingleEvent/SingleEvent";
 import { User } from "../../components/SignlePost/SinglePost";
-import { FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaRegWindowClose } from "react-icons/fa";
 import CreateEventModal from "../../components/EventModal/EventModal";
 import { toast } from "react-toastify";
 
@@ -113,12 +113,17 @@ const Event = (props: Props) => {
 
   return (
     <div className={styles.container}>
-      <Header />
       {isModalOpen && (
-        <div
-          className={styles.overlay}
-          onClick={() => setIsModalOpen(false)}
-        ></div>
+        <>
+          <div
+            className={styles.overlay}
+            onClick={() => setIsModalOpen(false)}
+          ></div>
+          <FaRegWindowClose
+            className={styles.closeModal}
+            onClick={() => setIsModalOpen(false)}
+          />
+        </>
       )}
       <div className={styles.mainContainer}>
         <div className={styles.eventHeader}>
