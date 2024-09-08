@@ -54,7 +54,7 @@ const Home: React.FC<Props> = () => {
       <Header />
       <div className={styles.homeContainer}>
         <div className={styles.homePosts}>
-          <FormPost />
+          <FormPost setPosts={setPosts} />
           <div className={styles.buttons}>
             <button
               onClick={() => {

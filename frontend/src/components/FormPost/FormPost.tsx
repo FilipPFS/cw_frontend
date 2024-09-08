@@ -6,10 +6,13 @@ import CreateEventModal from "../EventModal/EventModal";
 import noAvatar from "../../images/no-avatar.png";
 import { User } from "../../user";
 import { toast } from "react-toastify";
+import { type Post } from "../Posts/Posts";
 
-type Props = {};
+type Props = {
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
+};
 
-const FormPost = (props: Props) => {
+const FormPost = ({ setPosts }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -106,7 +109,7 @@ const FormPost = (props: Props) => {
 
       console.log("Data to send", finalPostContent);
 
-      const response: AxiosResponse<{ message: string }> = await axios.post(
+      const response: AxiosResponse<Post[]> = await axios.post(
         "http://localhost:5000/api/posts",
         finalPostContent,
         {
@@ -116,9 +119,11 @@ const FormPost = (props: Props) => {
         }
       );
 
-      if (response) {
+      if (response.status === 201) {
+        setImageSrc(null);
+        setPostContent({ content: "", img: "" });
         toast.success("Le post a été publié.");
-        window.location.reload();
+        setPosts(response.data);
       }
 
       console.log("Post submitted:", finalPostContent);
