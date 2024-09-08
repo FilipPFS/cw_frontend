@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import GlobalModal from "../GlobalModal/GlobalModal";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
+import { useUser } from "../../context/UserContext";
 
 type SinglePostProps = Post & {
   addLike: (postId: string) => void;
@@ -55,9 +56,9 @@ const SinglePost: React.FC<SinglePostProps> = ({
 }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [viewComments, setViewComments] = useState(false);
-  const [sessionsUser, setSessionUser] = useState<User>();
   const [openModal, setOpenModal] = useState(false);
   const [clickedImage, setClickedImage] = useState(false);
+  const { sessionUser } = useUser();
 
   const formatDateToNow = (date: string) => {
     return formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr });
@@ -75,28 +76,8 @@ const SinglePost: React.FC<SinglePostProps> = ({
     }
   };
 
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response: AxiosResponse<User> = await axios.get(
-        `http://localhost:5000/api/users/session`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setSessionUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
     getUsers();
-    getSessionUser();
   }, []);
 
   const user = users.find((user) => user._id === userId);
@@ -109,7 +90,7 @@ const SinglePost: React.FC<SinglePostProps> = ({
     setViewComments((prevComments) => !prevComments);
   };
 
-  const hasLiked = likes.some((like) => like.userId === sessionsUser?._id);
+  const hasLiked = likes.some((like) => like.userId === sessionUser?._id);
 
   const deletePost = async () => {
     const token = localStorage.getItem("token");

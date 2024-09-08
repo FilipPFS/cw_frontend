@@ -12,6 +12,7 @@ import noAvatar from "../../images/no-avatar.png";
 import { User } from "../../user";
 import { toast } from "react-toastify";
 import { type Post } from "../Posts/Posts";
+import { useUser } from "../../context/UserContext";
 
 type Props = {
   setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
@@ -23,26 +24,7 @@ const FormPost = ({ setPosts }: Props) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [postContent, setPostContent] = useState({ content: "", img: "" });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [sessionUser, setSessionUser] = useState<User>();
-
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response: AxiosResponse<User> = await axios.get(
-        `http://localhost:5000/api/users/session`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setSessionUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const { sessionUser } = useUser();
 
   const handleInput = () => {
     if (textareaRef.current) {
@@ -136,10 +118,6 @@ const FormPost = ({ setPosts }: Props) => {
       console.error("Error submitting post:", error);
     }
   };
-
-  useEffect(() => {
-    getSessionUser();
-  }, []);
 
   return (
     <div className={styles.postContainer}>

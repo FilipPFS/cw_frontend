@@ -7,6 +7,7 @@ import { User } from "../../components/SignlePost/SinglePost";
 import { FaCalendarAlt, FaRegWindowClose } from "react-icons/fa";
 import CreateEventModal from "../../components/EventModal/EventModal";
 import { toast } from "react-toastify";
+import { useUser } from "../../context/UserContext";
 
 type Props = {};
 
@@ -22,27 +23,8 @@ export type Event = {
 
 const Event = (props: Props) => {
   const [events, setEvents] = useState<Event[]>([]);
-  const [sessionUser, setSessionUser] = useState<User>();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/users/session`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setSessionUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const { sessionUser } = useUser();
 
   const deleteEvent = async (id: string) => {
     const token = localStorage.getItem("token");
@@ -108,7 +90,6 @@ const Event = (props: Props) => {
 
   useEffect(() => {
     getEvents();
-    getSessionUser();
   }, []);
 
   return (

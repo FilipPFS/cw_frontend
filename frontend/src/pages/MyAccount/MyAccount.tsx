@@ -8,34 +8,16 @@ import UserInfo from "../../components/UserInfo/UserInfo";
 import Posts, { Post } from "../../components/Posts/Posts";
 import UserEvents from "../../components/UserEvents/UserEvents";
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 type Props = {};
 
 const MyAccount = (props: Props) => {
-  const [sessionUser, setSessionUser] = useState<User>();
+  const { sessionUser, setSessionUser } = useUser();
   const [userPosts, setUserPosts] = useState<Post[]>([]);
   const [likedPosts, setLikedPosts] = useState<Post[]>([]);
   const [viewPosts, setViewPosts] = useState(true);
   const [viewEvents, setViewEvents] = useState(false);
-
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/users/session`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setSessionUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const getSessionUserPosts = async () => {
     const token = localStorage.getItem("token");
@@ -76,7 +58,6 @@ const MyAccount = (props: Props) => {
   };
 
   useEffect(() => {
-    getSessionUser();
     getSessionUserPosts();
     getLikedPosts();
   }, []);

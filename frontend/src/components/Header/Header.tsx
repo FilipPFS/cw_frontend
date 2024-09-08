@@ -16,12 +16,13 @@ import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import noAvatar from "../../images/no-avatar.png";
 import { User } from "../SignlePost/SinglePost";
+import { useUser } from "../../context/UserContext";
 
-type Props = {
-  sessionUser?: User;
-};
+type Props = {};
 
-const Header = ({ sessionUser }: Props) => {
+const Header = ({}: Props) => {
+  const { sessionUser } = useUser();
+
   const signOut = () => {
     localStorage.removeItem("token");
     window.location.reload();

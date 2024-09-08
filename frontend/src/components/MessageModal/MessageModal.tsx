@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import noAvatar from "../../images/no-avatar.png";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
+import { useUser } from "../../context/UserContext";
 
 type Props = {
   senderId: string;
@@ -15,34 +16,12 @@ type Props = {
 };
 
 const MessageModal = ({ senderId, receiverId, content, date }: Props) => {
-  const [sessionUser, setSessionUser] = useState<User | undefined>(undefined);
   const [user, setUser] = useState<User | undefined>(undefined);
+  const { sessionUser } = useUser();
 
   const formatDateToNow = (date: string) => {
     return formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr });
   };
-
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response: AxiosResponse<User> = await axios.get(
-        `http://localhost:5000/api/users/session`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setSessionUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getSessionUser();
-  }, []);
 
   useEffect(() => {
     const getUser = async () => {

@@ -5,6 +5,7 @@ import { User } from "../../user";
 import SingleComment from "../SingleComment/SingleComment";
 import noAvatar from "../../images/no-avatar.png";
 import { FaPaperPlane } from "react-icons/fa";
+import { useUser } from "../../context/UserContext";
 
 type Props = {
   postId: string;
@@ -18,7 +19,7 @@ type Comment = {
 
 const Comments = ({ postId }: Props) => {
   const [allComments, setAllComments] = useState<Comment[]>();
-  const [sessionUser, setSessionUser] = useState<User>();
+  const { sessionUser } = useUser();
   const [comment, setComment] = useState("");
 
   const getPostComments = async (postId: string) => {
@@ -54,28 +55,8 @@ const Comments = ({ postId }: Props) => {
     }
   };
 
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response: AxiosResponse<User> = await axios.get(
-        `http://localhost:5000/api/users/session`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setSessionUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
     getPostComments(postId);
-    getSessionUser();
   }, []);
 
   console.log(comment);

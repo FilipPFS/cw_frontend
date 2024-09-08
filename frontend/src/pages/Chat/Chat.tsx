@@ -7,6 +7,7 @@ import noAvatar from "../../images/no-avatar.png";
 import { User } from "../../components/SignlePost/SinglePost";
 import SingleMessage from "../../components/SingleMessage/SingleMessage";
 import { FaPaperPlane } from "react-icons/fa";
+import { useUser } from "../../context/UserContext";
 
 type Props = {};
 
@@ -20,7 +21,7 @@ export type Message = {
 
 const Chat = (props: Props) => {
   const [user, setUser] = useState<User>();
-  const [sessionUser, setSessionUser] = useState<User>();
+  const { sessionUser, setSessionUser } = useUser();
   const [messages, setMessages] = useState<Message[]>([]);
   const [content, setContent] = useState("");
   const { userMsgId } = useParams();
@@ -56,25 +57,6 @@ const Chat = (props: Props) => {
     }
   };
 
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response: AxiosResponse<User> = await axios.get(
-        `http://localhost:5000/api/users/session`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setSessionUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const submitMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -98,7 +80,6 @@ const Chat = (props: Props) => {
 
   useEffect(() => {
     getUser();
-    getSessionUser();
     getMessages();
   }, []);
 

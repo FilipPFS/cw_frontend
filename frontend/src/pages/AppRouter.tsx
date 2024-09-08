@@ -21,35 +21,10 @@ type Props = {};
 const AppRouter = (props: Props) => {
   const token = localStorage.getItem("token");
 
-  const [user, setUser] = useState<User>();
-
-  const getSessionUser = async () => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response: AxiosResponse<User> = await axios.get(
-        "http://localhost:5000/api/users/session",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getSessionUser();
-  }, []);
-
   return (
     <Router>
       <div className="mainContainer">
-        <Header sessionUser={user} />
+        <Header />
         <Routes>
           {token ? (
             <>
