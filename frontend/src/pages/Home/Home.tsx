@@ -11,6 +11,8 @@ type Props = {};
 const Home: React.FC<Props> = () => {
   const token = localStorage.getItem("token");
   const [posts, setPosts] = useState<Post[]>([]);
+  const [friendsPosts, setFriendsPosts] = useState<Post[]>([]);
+  const [classicPosts, setClassicPosts] = useState(true);
 
   const getPosts = async () => {
     try {
@@ -18,7 +20,25 @@ const Home: React.FC<Props> = () => {
         "http://localhost:5000/api/posts",
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setPosts(response.data);
+
+      if (response.status === 200) {
+        setPosts(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getFriendsPosts = async () => {
+    try {
+      const response: AxiosResponse<Post[]> = await axios.get(
+        "http://localhost:5000/api/posts/friends",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (response.status === 200) {
+        setFriendsPosts(response.data);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -26,6 +46,7 @@ const Home: React.FC<Props> = () => {
 
   useEffect(() => {
     getPosts();
+    getFriendsPosts();
   }, []);
 
   return (
@@ -34,9 +55,28 @@ const Home: React.FC<Props> = () => {
       <div className={styles.homeContainer}>
         <div className={styles.homePosts}>
           <FormPost />
+          <div className={styles.buttons}>
+            <button
+              onClick={() => {
+                setClassicPosts(true);
+              }}
+              className={classicPosts ? styles.active : ""}
+            >
+              Pour vous
+            </button>
+            <button
+              onClick={() => {
+                setClassicPosts(false);
+              }}
+              className={!classicPosts ? styles.active : ""}
+            >
+              Amis uniquement
+            </button>
+          </div>
           <Posts
             fetchPosts={getPosts}
-            posts={posts}
+            fetchFriendPosts={getFriendsPosts}
+            posts={classicPosts ? posts : friendsPosts}
             setPosts={setPosts}
             homePage={true}
             editable={false}

@@ -139,6 +139,8 @@ const MyAccount = (props: Props) => {
                 {userPosts && (
                   <Posts
                     posts={userPosts}
+                    fetchPosts={getSessionUserPosts}
+                    fetchLiked={getLikedPosts}
                     setPosts={setUserPosts}
                     homePage={false}
                     editable={true}
@@ -151,6 +153,8 @@ const MyAccount = (props: Props) => {
                   <Posts
                     posts={likedPosts}
                     setPosts={setLikedPosts}
+                    fetchPosts={getSessionUserPosts}
+                    fetchLiked={getLikedPosts}
                     homePage={false}
                     editable={false}
                   />

@@ -15,6 +15,8 @@ import Comments from "../Comments/Comments";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import GlobalModal from "../GlobalModal/GlobalModal";
+import { formatDistanceToNow } from "date-fns";
+import { fr } from "date-fns/locale";
 
 type SinglePostProps = Post & {
   addLike: (postId: string) => void;
@@ -49,12 +51,17 @@ const SinglePost: React.FC<SinglePostProps> = ({
   homePage,
   editable,
   setPosts,
+  createdAt,
 }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [viewComments, setViewComments] = useState(false);
   const [sessionsUser, setSessionUser] = useState<User>();
   const [openModal, setOpenModal] = useState(false);
   const [clickedImage, setClickedImage] = useState(false);
+
+  const formatDateToNow = (date: string) => {
+    return formatDistanceToNow(new Date(date), { addSuffix: true, locale: fr });
+  };
 
   const getUsers = async () => {
     try {
@@ -151,6 +158,7 @@ const SinglePost: React.FC<SinglePostProps> = ({
                 {user.firstName} {user.lastName}
               </h4>
             </Link>
+            {formatDateToNow(createdAt)}
           </div>
         </div>
         {editable && (
